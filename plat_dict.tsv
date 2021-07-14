@@ -1,0 +1,32 @@
+db	annotation
+clariomdhumantranscriptcluster.db	pd.clariom.d.human
+clariomshumanhttranscriptcluster.db	pd.clariom.s.human.ht
+clariomshumantranscriptcluster.db	pd.clariom.s.human
+hcg110.db	pd.hc.g110
+hgfocus.db	pd.hg.focus
+hgu133a.db	pd.hg.u133a
+hgu133a2.db	pd.hg.u133a.2
+hgu133b.db	pd.hg.u133b
+hgu133plus2.db	pd.hg.u133.plus.2
+hgu219.db	pd.hg.u219
+hgu95a.db	pd.hg.u95a
+hgu95av2.db	pd.hg.u95av2
+hgu95b.db	pd.hg.u95b
+hgu95c.db	pd.hg.u95c
+hgu95d.db	pd.hg.u95d
+hgu95e.db	pd.hg.u95e
+hta20probeset.db	pd.hta.2.0
+hthgu133a.db	pd.ht.hg.u133a
+hthgu133b.db	
+hu35ksuba.db	
+hu35ksubb.db	
+hu35ksubc.db	
+hu35ksubd.db	
+hu6800.db	pd.hu6800
+huex10stprobeset.db	pd.huex.1.0.st.v2
+hugene10stprobeset.db	pd.hugene.1.0.st.v1
+hugene11stprobeset.db	pd.hugene.1.1.st.v1
+hugene20stprobeset.db	pd.hugene.2.0.st
+hugene21stprobeset.db	pd.hugene.2.1.st
+nugohs1a520180.db	
+u133x3p.db	
