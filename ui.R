@@ -21,7 +21,6 @@ shinyUI(fluidPage (
     tags$head(tags$style(HTML("hr {border-top: 1px solid #000000;}"))),
     style = "background-color:#B2DFDB",
     shinyjs::extendShinyjs(text = "shinyjs.refresh = function() { location.reload();}", functions=c("refresh")),
-    #shinyjs::extendShinyjs(text = "shinyjs.toTop = function() {window.scrollTo (0,0);}"),
     title= "DExplore - Differential Gene Expression Analysis",
     navbarPage( tags$b("DExplore - Differential Gene Expression Analysis"),
                 selected = NULL,
@@ -58,6 +57,7 @@ shinyUI(fluidPage (
                            hr(),
                            h4("Please, refresh DExplore between analyses", style="text-align:center"),
                            hr(),
+                                                     
                            column(12,
                                   shinyjs::hidden(
                                       div (id = "submit_msg",
@@ -75,7 +75,7 @@ shinyUI(fluidPage (
                                           ),
                                       div(id="goToNextTab",
                                           style = "text-align:center",
-                                          h4(uiOutput( outputId = "url")),
+                                          h4(uiOutput( outputId = "url")), 
                                           h4("Your data has been downloaded. Please, go to the Data Description tab and fill in the form."),
                                           hr()
                                           ),
@@ -90,8 +90,12 @@ shinyUI(fluidPage (
                                           hr()
                                           )
                                   ),
-                                  bsTooltip("url","Click to redirect to GEO website",placement = "top", trigger = "hover")
-                           )),
+                                  bsTooltip("url","Click to redirect to GEO website",placement = "top", trigger = "hover"),
+                           ),
+                           h4("You can access the source code and/or the docker image using the following links:", style="text-align: left"),
+                           h4(uiOutput (outputId= "GitHub"), style="text-align:left"),
+                           h4(uiOutput (outputId= "DockerHub"), style="text-align:left")
+                ),
                 
                 tabPanel( title = "Data Description",
                           br(),

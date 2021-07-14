@@ -67,11 +67,24 @@ shinyServer(function(input, output) {
     #changing the file size limit
     options(shiny.maxRequestSize = 25*1024^2) #25MB per file is allowed
     
+    #preventing the shiny app from being grayed out
+    autoInvalidate <- reactiveTimer(10000)
+    observe({
+        autoInvalidate()
+        cat(".")
+    })
+    
     #View user's guide
     output$users_guide_msg <- renderUI({tagList(tags$p(tags$b(tags$h2("User's guide"))))})
     output$users_guide_view <- renderUI({
         tags$iframe(style="height:800px; width:100%", src="Users_guide.pdf")
     })
+    
+    #Links to GitHub and DockerHub
+    GitHub <- a ("GitHub link", href="https://github.com/annakatsiki/dexplore", target='_blank')
+    output$GitHub <- renderUI({tagList(tags$p(GitHub))})
+    DockerHub <- a ("DockerHub link", href="https://hub.docker.com/r/akatsiki/dexplore", target='_blank')
+    output$DockerHub <- renderUI({tagList(tags$p(DockerHub))})
     
     #About us
     output$about <- renderUI({tagList(tags$p(tags$b("DExplore: an online tool for detecting differentially expressed genes from mRNA microarray experiments")),
