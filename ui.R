@@ -338,7 +338,8 @@ shinyUI(fluidPage (
                                                 "log2-expression level for that gene across all the arrays ",
                                                 "in the experiment</p> <p><b>t</b>= the moderated t-statistic</p> ",
                                                 "<p><b>P.Value</b>= the associated p-value</p>  <p><b>adj.P.Value</b>= ",
-                                                "the p-value adjusted for multiple testing</p> "),
+                                                "the p-value adjusted for multiple testing</p>",
+                                                "<p><b>B</b>= log-odds that the gene is differentially expressed</p>"),
                                      placement = "bottom", 
                                      trigger = "click")
                           

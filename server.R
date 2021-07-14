@@ -456,7 +456,7 @@ shinyServer(function(input, output) {
                         dim(sign)
 
                         ###Annotation using annotate
-                        dict <- read.table("../DExplore_v.2/plat_dict_full_1.tsv",
+                        dict <- read.table("../DExplore_v.2/plat_dict_full.tsv",
                                            header = T, sep = "\t", colClasses = "character")
                         gse_acc <- paste0("GSE", input$GSE)
                         gse<- getGEO(gse_acc, destdir = getwd(), GSEMatrix = T)
@@ -903,7 +903,7 @@ shinyServer(function(input, output) {
                     dim(sign)
                     
                     ###Annotation me annotate
-                    dict<- read.table("../DExplore_v.2/plat_dict_full_1.tsv", 
+                    dict<- read.table("../DExplore_v.2/plat_dict_full.tsv", 
                                       header = T, sep="\t", colClasses = "character")
                     p<- grep(Data@annotation,dict$annotation, ignore.case = T, fixed = T)
                     x<- dict$db[p]
