@@ -1,0 +1,22 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.txt.gz
+*.txt
+*.CEL
+*.doc
+*.docx
+*.pdf
+<<<<<<< HEAD
+*.ht1ml
+*.soft
+*.txt
+*.CEL
+*.tsv
+*.soft
+=======
+*.soft
+*.html
+.soft
+>>>>>>> refs/remotes/origin/feature_reading_with_oligo-skip_panp
