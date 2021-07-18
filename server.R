@@ -1,48 +1,18 @@
-#Installing packages
-if(!require(shiny)) {
-    install.packages('shiny', dependencies = TRUE)
-    library(shiny)
-}
-if(!require(shinyjs)) {
-    install.packages('shinyjs', dependencies = TRUE)
-    library(shinyjs)
-}
-if(!require(shinyBS)) {
-    install.packages('shinyBS', dependencies = TRUE)
-    library(shinyBS)
-}
-if(!require(DT)) {
-    install.packages('DT', dependencies = TRUE)
-    library(DT)
-}
-if(!require(RCurl)) {
-    install.packages('RCurl', dependencies = TRUE)
-    library(RCurl)
-}
-if(!require(BiocManager)) {
-    install.packages('BiocManager', dependencies = TRUE)
-    library(BiocManager)
-}
-if(!require(GEOquery)) {
-    BiocManager::install('GEOquery', dependencies = TRUE, ask = FALSE)
-    library(GEOquery)
-}
-if(!require(limma)) {
-    BiocManager::install('limma', dependencies = TRUE, ask = FALSE)
-    library(limma)
-}
-if(!require(oligo)) {
-    BiocManager::install('oligo', dependencies = TRUE, ask = FALSE)
-    library(oligo)
-}
-if(!require(annotate)) {
-    BiocManager::install('annotate', dependencies = TRUE, ask = FALSE)
-    library(annotate)
-}
+#Loading packages
+library(shiny)
+library(shinyjs)
+library(shinyBS)
+library(DT)
+library(RCurl)
+library(BiocManager)
+library(GEOquery)
+library(limma)
+library(oligo)
+library(annotate)
 
 source('helpers.R')
 
-setwd('../GSE')
+#setwd('../GSE')
 
 # Define server logic required to download a GSE matrix
 shinyServer(function(input, output) {
@@ -53,15 +23,15 @@ shinyServer(function(input, output) {
     #GSEdir<- getwd()
     #print(paste0("GSEdir is ", GSEdir))
     #unlink(paste0(GSEdir,"*"),recursive = TRUE)
-    currentDir<- "C:/Users/Anna/Desktop/PhD/DExplore/DExplore_v.2"
+    currentDir<- "./"
     ProjectDir<- dir (path = currentDir, pattern ="^Project", full.names = TRUE)
     print(paste0("ProjectDir is ", ProjectDir))
     print(list.files(path = getwd(), all.files = T, full.names = T, include.dirs = T))
-    unlink(paste0(ProjectDir,"*"), recursive = TRUE)
+    #unlink(paste0(ProjectDir,"*"), recursive = TRUE)
     unlink(file.path(getwd(),c("*.CEL", "*.gz", "*.txt.gz","*.txt", "*.tar"))) 
     print("*.CEL, *.tar, *.gz, *.txt.gz and *.txt are gone")
     print(list.files(path = getwd(), all.files = T, full.names = T, include.dirs = T))
-    wwwDir<- "C:/Users/Anna/Desktop/PhD/DExplore/DExplore_v.2/www"
+    wwwDir<- "./www"    
     unlink(file.path(wwwDir,c ("*.html")))
 
     #changing the file size limit
@@ -456,7 +426,7 @@ shinyServer(function(input, output) {
                         dim(sign)
 
                         ###Annotation using annotate
-                        dict <- read.table("../DExplore_v.2/plat_dict_full.tsv",
+                        dict <- read.table("./plat_dict_full.tsv",
                                            header = T, sep = "\t", colClasses = "character")
                         gse_acc <- paste0("GSE", input$GSE)
                         gse<- getGEO(gse_acc, destdir = getwd(), GSEMatrix = T)
@@ -562,10 +532,10 @@ shinyServer(function(input, output) {
                                 shinyjs::showElement ("WebGestaltR_but")
                                 
                                 ###WebGestaltR
-                                if(!require(WebGestaltR)) {
-                                    install.packages('WebGestaltR', dependencies = TRUE)
+                                #if(!require(WebGestaltR)) {
+                                #    install.packages('WebGestaltR', dependencies = TRUE)
                                     library(WebGestaltR)
-                                }
+                                #}
                                 observeEvent(input$WebGestaltR,{
                                     shinyjs::showElement("WebGestaltR_but")
                                     shinyjs::disable("WebGestaltR")
@@ -598,15 +568,15 @@ shinyServer(function(input, output) {
                                             shinyjs::hideElement("WebGestaltR_but")
                                             shinyjs::hideElement("choosing_organism")
                                             shinyjs::hideElement("choosing_RefSet")
-                                            if(!require(zip)) {
-                                                install.packages('zip', dependencies = TRUE)
+                                            #if(!require(zip)) {
+                                            #    install.packages('zip', dependencies = TRUE)
                                                 library(zip)
-                                            }
+                                            #}
                                             print("Running WebGestaltR")
                                             genesymbol <- degs_t$gene_symbol
                                             genesymbol <- as.character(genesymbol)
-                                            projectName <- paste0("GSE", input$GSE,"_WebGestalt")
-                                            outputDir <- "C:/Users/Anna/Desktop/PhD/DExplore/DExplore_v.2" 
+                                            projectName <- c("WebGestalt")
+                                            outputDir <- currentDir
                                             WebGestaltR(enrichMethod = "ORA", organism = input$chooseOrganism,
                                                         enrichDatabase = c("geneontology_Biological_Process", "geneontology_Molecular_Function",
                                                                            "geneontology_Cellular_Component"),
@@ -639,7 +609,7 @@ shinyServer(function(input, output) {
                                         })
                                         output$down_WebGestalt <- downloadHandler(
                                             filename = function() {
-                                                paste0("Project_GSE", input$GSE, "_WebGestalt.zip")
+                                                paste0("WebGestalt_Results.zip","")
                                             },
                                             content = function(temp) {
                                                 file.copy(from = paste0(getwd(),"/WebGestalt.zip"), to = temp)  
@@ -903,7 +873,7 @@ shinyServer(function(input, output) {
                     dim(sign)
                     
                     ###Annotation me annotate
-                    dict<- read.table("../DExplore_v.2/plat_dict_full.tsv", 
+                    dict<- read.table("./plat_dict_full.tsv", 
                                       header = T, sep="\t", colClasses = "character")
                     p<- grep(Data@annotation,dict$annotation, ignore.case = T, fixed = T)
                     x<- dict$db[p]
@@ -1003,10 +973,10 @@ shinyServer(function(input, output) {
                             shinyjs::hideElement ("wait_msg5")
                             shinyjs::showElement ("WebGestaltR_but")
                             ###WebGestaltR
-                            if(!require(WebGestaltR)) {
-                                install.packages('WebGestaltR', dependencies = TRUE)
+                            #if(!require(WebGestaltR)) {
+                            #    install.packages('WebGestaltR', dependencies = TRUE)
                                 library(WebGestaltR)
-                            }
+                            #}
                             observeEvent(input$WebGestaltR,{
                                 shinyjs::showElement("WebGestaltR_but")
                                 shinyjs::disable("WebGestaltR_but")
@@ -1039,15 +1009,15 @@ shinyServer(function(input, output) {
                                         shinyjs::hideElement("WebGestaltR_but")
                                         shinyjs::hideElement("choosing_organism")
                                         shinyjs::hideElement("choosing_RefSet")
-                                        if(!require(zip)) {
-                                            install.packages('zip', dependencies = TRUE)
+                                        #if(!require(zip)) {
+                                        #    install.packages('zip', dependencies = TRUE)
                                             library(zip)
-                                        }
+                                        #}
                                         print("Running WebGestaltR")
                                         genesymbol <- degs_t$gene_symbol
                                         genesymbol <- as.character(genesymbol)
                                         projectName <- c("WebGestalt")
-                                        outputDir <- "C:/Users/Anna/Desktop/PhD/DExplore/DExplore_v.2" 
+                                        outputDir <- currentDir 
                                         WebGestaltR(enrichMethod = "ORA", organism = input$chooseOrganism,
                                                     enrichDatabase = c("geneontology_Biological_Process", "geneontology_Molecular_Function",
                                                                        "geneontology_Cellular_Component"),

@@ -46,10 +46,10 @@ validation <- function(ftp) {
 createLink <- function(dts) {
   https <- paste0(http, dts)
   link <- a (paste("GSE", dts, sep = ""), href=https, target="_blank")
-  print(c("here is the link",paste(link))) 
-    return(link)
-    print("link created")
-    print(link)
+  print(c("here is the link",paste(link)))
+  return(link)
+  print("link created")
+  print(link)
     }
 
 createFilenm <- function(dts){
