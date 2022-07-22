@@ -32,12 +32,13 @@ createFtp <- function(accession) {
 }
 
 validation <- function(ftp) {
-  if (url.exists(ftp)) { 
+  re<- GET (ftp)
+  if (!is.null(re)) { 
     print("url exists")
     print("validation==TRUE")
     return(TRUE)
   }
-  if (!url.exists(ftp)) { 
+  if (is.null(re)) { 
     print("url does not exist")
     return(FALSE)
   }
@@ -50,46 +51,15 @@ createLink <- function(dts) {
   return(link)
   print("link created")
   print(link)
-    }
-
-createFilenm <- function(dts){
-  
-  filenm <- paste("GSE",dts, "_series_matrix.txt.gz", sep = "")
-  return(filenm)
 }
 
-createGSE<- function(ftp,filenm) {
-  if (!file.exists(filenm)) {
-    download.file(paste(ftp,filenm, sep = ""), destfile = filenm) 
-  }
-  gse <- getGEO(filename = filenm, destdir = getwd(), GSEMatrix = T)
-  print("gse was created")
-  return(gse)
-}
-
-createGSE2<- function(dts) {
+createGSE<- function(dts) {
   accession<- as.character(paste0("GSE", dts))
-  gse <- getGEO(accession, GSEMatrix = T)
+  gse <- getGEO(accession, GSEMatrix = T, getGPL = F) 
   print("gse was created")
   return(gse)
 }
-createEmpty<- function(gse) {
-  empty <- data.frame(sample=colnames(gse),
-                      treatment=paste("treatment"),
-                      duration=paste("duration"),
-                      concentration=paste("concentration"),
-                      replicate=paste("replicate"),
-                      stringsAsFactors = FALSE)
-  print("empty table was created")
-  return(empty)
-}
-createEmpty2<- function(sample_col, treat_col) {
-  empty <- data.frame(sample=sample_col,
-                      treatment=treat_col,
-                      stringsAsFactors = FALSE)
-  print("empty2 table was created")
-  return(empty)
-}
+
 create_uploaded_df <- function(fileNames){
   empty <- data.frame(sample= fileNames[,1],
                       treatment=paste("treatment"),
@@ -101,41 +71,6 @@ create_uploaded_df <- function(fileNames){
   return(empty)
 }
 
-createDataTable <- function(gse) {
-  df <- DT::datatable(data.frame(sample=colnames(gse),
-                                 treatment=paste("treatment"),
-                                 duration=paste("duration"),
-                                 concentration=paste("concentration"),
-                                 replicate=paste("replicate")),
-                      editable = TRUE,
-                      rownames = FALSE,
-                      selection = "none",
-                      extensions = c( 'Buttons', 'KeyTable', 'Responsive'),
-                      options = list(autoWidth = FALSE,
-                                     dom='Bfrtip',
-                                     pageLength= 24,
-                                     buttons = list(list(extend = 'colvis', columns = c(2, 3)))
-                      )
-  ) %>% formatStyle('sample',  color='black', backgroundColor = '#D1C4E9', fontWeight = 'bold')
-  print("DataTable was created")
-  return(df)
-}
-
-createDataTable_pD <- function(df) {
-  df <- DT::datatable(data.frame(df),
-                      editable = TRUE,
-                      rownames = FALSE,
-                      selection = "none",
-                      extensions = c( 'Buttons', 'KeyTable', 'Responsive'),
-                      options = list(autoWidth = FALSE,
-                                     dom='Bfrtip',
-                                     pageLength= 24,
-                                     buttons = list(list(extend = 'colvis', columns = c(2, 3)))
-                      )
-  ) %>% formatStyle('sample',  color='black', backgroundColor = '#D1C4E9', fontWeight = 'bold')
-  print("DataTable_pD was created")
-  return(df)
-}
 create_uploaded_DataTable <- function(fileNames) {
   df <- DT::datatable(data.frame(sample= fileNames[,1],
                                  treatment=paste("treatment"),
@@ -165,17 +100,17 @@ create_df_comp <- function(unique_table) {
                         tr2=character(),
                         stringsAsFactors = FALSE)
   for (c in 1: length(unique_table)) {
-      for (i in c:length(unique_table)) {
-        if (c!=i){
-          j <- j+1
-          print(paste("c=",c,"i=",i, sep = " "))
-          un_i <- unique_table[i]
-          un_c <- unique_table[c]
-          df_comp[j,1]<- un_c
-          df_comp[j,2]<-"vs."
-          df_comp[j,3]<- un_i
-        }
+    for (i in c:length(unique_table)) {
+      if (c!=i){
+        j <- j+1
+        print(paste("c=",c,"i=",i, sep = " "))
+        un_i <- unique_table[i]
+        un_c <- unique_table[c]
+        df_comp[j,1]<- un_c
+        df_comp[j,2]<-"vs."
+        df_comp[j,3]<- un_i
       }
+    }
   }
   return(df_comp)
 }
@@ -211,33 +146,21 @@ filter2<- function(Matrix, threshold1, threshold2) {
   }
 }
 
-annotf1<- function(DataFrame, x) {  ###gia annotation me annotate
-    if (require(x, character.only = T)) { 
-      sign <- DataFrame
-      ID <- row.names(sign)
-      geneName <- data.frame(gene_symbol=getSYMBOL(ID,x))
-      sign <- cbind("probeID"= row.names(sign), "gene_symbol"=geneName, sign)
-      return(sign)
-    }
-  }
-
-annotf2<- function(DataFrame, db) {  ###gia annotation me AnnotationDbi
+annotf<- function(DataFrame, x) {  ###gia annotation me annotate
   if (require(x, character.only = T)) { 
     sign <- DataFrame
     ID <- row.names(sign)
-    gene_symbol <- vector(length = length(ID))
-    geneName <- select(db, ID, "SYMBOL")
-    sign <- cbind("probeID"= row.names(sign), gene_symbol, sign)
-    sign[,2]<- geneName[match(sign[,1],geneName[,1], nomatch = 0),2]
+    geneName <- data.frame(gene_symbol=getSYMBOL(ID,x))
+    sign <- cbind("probeID"= row.names(sign), "gene_symbol"=geneName, sign)
     return(sign)
   }
 }
 
 no_annotf<- function(DataFrame) {  ###gia annotation me annotate
-    sign <- DataFrame
-    ID <- row.names(sign)
-    sign <- cbind("probeID"= row.names(sign), sign)
-    return(sign)
+  sign <- DataFrame
+  ID <- row.names(sign)
+  sign <- cbind("probeID"= row.names(sign), sign)
+  return(sign)
 }
 
 unFilt<- function(character, DataFrame) { ###filtering for unique genes, 1st argument: sign$gene_symbol

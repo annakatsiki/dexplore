@@ -1,0 +1,318 @@
+Accession	Title	Technology	Taxonomy	Data Rows	db	annotation
+GPL32	[MG_U74A] Affymetrix Murine Genome U74A Array	in situ oligonucleotide	Mus musculus	12654	mgu74a.db	pd.mg.u74a
+GPL33	[MG_U74B] Affymetrix Murine Genome U74B Array	in situ oligonucleotide	Mus musculus	12636	mgu74b.db	pd.mg.u74b
+GPL34	[MG_U74C] Affymetrix Murine Genome U74C Array	in situ oligonucleotide	Mus musculus	12728	mgu74c.db	pd.mg.u74c
+GPL71	[AG] Affymetrix Arabidopsis Genome Array	in situ oligonucleotide	Arabidopsis thaliana	8297	ag.db	pd.ag
+GPL72	[DrosGenome1] Affymetrix Drosophila Genome Array	in situ oligonucleotide	Drosophila melanogaster	14010	drosgenome1.db	pd.drosgenome1
+GPL73	[Ecoli] Affymetrix E. coli Genome Array	in situ oligonucleotide	Escherichia coli K-12	7312	-	pd.ecoli
+GPL74	[HC_G110] Affymetrix Human Cancer Array	in situ oligonucleotide	Homo sapiens	2059	hcg110.db	pd.hc.g110
+GPL75	[Mu11KsubA] Affymetrix Murine 11K SubA Array	in situ oligonucleotide	Mus musculus	6584	mu11ksuba.db	pd.mu11ksuba
+GPL76	[Mu11KsubB] Affymetrix Murine 11K SubB Array	in situ oligonucleotide	Mus musculus	6595	mu11ksubb.db	pd.mu11ksubb
+GPL77	[Mu19KsubA] Affymetrix Murine 19K SubA Array	in situ oligonucleotide	Mus musculus	7045	mu19ksuba.db	-
+GPL78	[Mu19KsubB] Affymetrix Murine 19K SubB Array	in situ oligonucleotide	Mus musculus	7054	mu19ksubb.db	-
+GPL79	[Mu19KsubC] Affymetrix Murine 19K SubC Array	in situ oligonucleotide	Mus musculus	7047	mu19ksubc.db	-
+GPL80	[Hu6800] Affymetrix Human Full Length HuGeneFL Array	in situ oligonucleotide	Homo sapiens	7129	hu6800.db	pd.hu6800
+GPL81	[MG_U74Av2] Affymetrix Murine Genome U74A Version 2 Array	in situ oligonucleotide	Mus musculus	12488	mgu74av2.db	pd.mg.u74av2
+GPL82	[MG_U74Bv2] Affymetrix Murine Genome U74B Version 2 Array	in situ oligonucleotide	Mus musculus	12477	mgu74bv2.db	pd.mg.u74bv2
+GPL83	[MG_U74Cv2] Affymetrix Murine Genome U74 Version 2 Array	in situ oligonucleotide	Mus musculus	11934	mgu74cv2.db	pd.mg.u74cv2
+GPL84	[Pae_G1a] Affymetrix Pseudomonas aeruginosa Array	in situ oligonucleotide	Pseudomonas aeruginosa	5900	-	pd.pae.g1a
+GPL85	[RG_U34A] Affymetrix Rat Genome U34 Array	in situ oligonucleotide	Rattus norvegicus	8799	rgu34a.db	pd.rg.u34a
+GPL86	[RG_U34B] Affymetrix Rat Genome U34 Array	in situ oligonucleotide	Rattus norvegicus	8791	rgu34b.db	pd.rg.u34b
+GPL87	[RG_U34C] Affymetrix Rat Genome U34 Array	in situ oligonucleotide	Rattus norvegicus	8789	rgu34c.db	pd.rg.u34c
+GPL88	[RN_U34] Affymetrix Rat Neurobiology U34 Array	in situ oligonucleotide	Rattus norvegicus	1322	rnu34.db	pd.rn.u34
+GPL89	[RT_U34] Affymetrix Rat Toxicology U34 Array	in situ oligonucleotide	Rattus norvegicus	1031	rtu34.db	-
+GPL90	[YG_S98] Affymetrix Yeast Genome S98 Array	in situ oligonucleotide	Saccharomyces cerevisiae	9335	ygs98.db	pd.yg.s98
+GPL91	[HG_U95A] Affymetrix Human Genome U95A Array	in situ oligonucleotide	Homo sapiens	12626	hgu95a.db	pd.hg.u95a
+GPL92	[HG_U95B] Affymetrix Human Genome U95B Array	in situ oligonucleotide	Homo sapiens	12620	hgu95b.db	pd.hg.u95b
+GPL93	[HG_U95C] Affymetrix Human Genome U95C Array	in situ oligonucleotide	Homo sapiens	12646	hgu95c.db	pd.hg.u95c
+GPL94	[HG_U95D] Affymetrix Human Genome U95D Array	in situ oligonucleotide	Homo sapiens	12644	hgu95d.db	pd.hg.u95d
+GPL95	[HG_U95E] Affymetrix Human Genome U95E Array	in situ oligonucleotide	Homo sapiens	12639	hgu95e.db	pd.hg.u95e
+GPL96	[HG-U133A] Affymetrix Human Genome U133A Array	in situ oligonucleotide	Homo sapiens	22283	hgu133a.db	pd.hg.u133a
+GPL97	[HG-U133B] Affymetrix Human Genome U133B Array	in situ oligonucleotide	Homo sapiens	22645	hgu133b.db	pd.hg.u133b
+GPL98	[Hu35KsubA] Affymetrix Human 35K SubA Array	in situ oligonucleotide	Homo sapiens	8934	hu35ksuba.db	-
+GPL99	[Hu35KsubB] Affymetrix Human 35K SubB Array	in situ oligonucleotide	Homo sapiens	8924	hu35ksubb.db	-
+GPL100	[Hu35KsubC] Affymetrix Human 35K SubC Array	in situ oligonucleotide	Homo sapiens	8928	hu35ksubc.db	-
+GPL101	[Hu35KsubD] Affymetrix Human 35K SubD Array	in situ oligonucleotide	Homo sapiens	8928	hu35ksubd.db	-
+GPL163	[Ye6100SubA] Affymetrix Yeast Genome 6K SubA Array	in situ oligonucleotide	Saccharomyces cerevisiae	1651	-	-
+GPL164	[Ye6100SubB] Affymetrix Yeast Genome 6K SubB Array	in situ oligonucleotide	Saccharomyces cerevisiae	1656	-	-
+GPL165	[Ye6100SubC] Affymetrix Yeast Genome 6K SubC Array	in situ oligonucleotide	Saccharomyces cerevisiae	1642	-	-
+GPL166	[Ye6100SubD] Affymetrix Yeast Genome 6K SubD Array	in situ oligonucleotide	Saccharomyces cerevisiae	1644	-	-
+GPL198	[ATH1-121501] Affymetrix Arabidopsis ATH1 Genome Array	in situ oligonucleotide	Arabidopsis thaliana	22810	ath1121501.db	pd.ath1.121501
+GPL199	[Ecoli_ASv2] Affymetrix E. coli Antisense Genome Array	in situ oligonucleotide	Escherichia coli K-12	7312	-	pd.ecoli.asv2
+GPL200	[Celegans] Affymetrix C. elegans Genome Array	in situ oligonucleotide	Caenorhabditis elegans	22625	celegans.db	pd.celegans
+GPL201	[HG-Focus] Affymetrix Human HG-Focus Target Array	in situ oligonucleotide	Homo sapiens	8793	hgfocus.db	pd.hg.focus
+GPL339	[MOE430A] Affymetrix Mouse Expression 430A Array	in situ oligonucleotide	Mus musculus	22690	moe430a.db	pd.moe430a
+GPL340	[MOE430B] Affymetrix Mouse Expression 430B Array	in situ oligonucleotide	Mus musculus	22575	moe430b.db	pd.moe430b
+GPL341	[RAE230A] Affymetrix Rat Expression 230A Array	in situ oligonucleotide	Rattus norvegicus	15923	rae230a.db	pd.rae230a
+GPL342	[RAE230B] Affymetrix Rat Expression 230B Array	in situ oligonucleotide	Rattus norvegicus	15333	rae230b.db	pd.rae230b
+GPL343	[Bsubtilis] Affymetrix Bsubtilis Genome Array	in situ oligonucleotide	Bacillus subtilis	5039	-	pd.bsubtilis
+GPL570	[HG-U133_Plus_2] Affymetrix Human Genome U133 Plus 2.0 Array	in situ oligonucleotide	Homo sapiens	54675	hgu133plus2.db	pd.hg.u133.plus.2
+GPL571	[HG-U133A_2] Affymetrix Human Genome U133A 2.0 Array	in situ oligonucleotide	Homo sapiens	22277	hgu133a2.db	pd.hg.u133a.2
+GPL1261	[Mouse430_2] Affymetrix Mouse Genome 430 2.0 Array	in situ oligonucleotide	Mus musculus	45101	mouse4302.db	pd.mouse430.2
+GPL1266	[Mapping10K_Xba131] Affymetrix Human Mapping 10K SNP Array	in situ oligonucleotide	Homo sapiens	11564	-	-
+GPL1318	[Xenopus_laevis] Affymetrix Xenopus laevis Genome Array	in situ oligonucleotide	Xenopus laevis	15611	-	pd.xenopus.laevis
+GPL1319	[Zebrafish] Affymetrix Zebrafish Genome Array	in situ oligonucleotide	Danio rerio	15617	zebrafish.db	pd.zebrafish
+GPL1320	[Vitis_Vinifera] Affymetrix Vitis vinifera (Grape) Genome Array	in situ oligonucleotide	Vitis vinifera	16602	-	pd.vitis.vinifera
+GPL1321	[Plasmodium_Anopheles] Affymetrix Plasmodium/Anopheles Genome Array	in situ oligonucleotide	Anopheles gambiae;Plasmodium falciparum	22769	-	pd.plasmodium.anopheles
+GPL1322	[Drosophila_2] Affymetrix Drosophila Genome 2.0 Array	in situ oligonucleotide	Drosophila melanogaster	18952	drosophila2.db	pd.drosophila.2
+GPL1339	[S_aureus] Affymetrix S. aureus Genome Array	in situ oligonucleotide	Staphylococcus aureus	7775	-	pd.s.aureus
+GPL1340	[Barley1] Affymetrix Barley Genome Array	in situ oligonucleotide	Hordeum vulgare	22840	-	pd.barley1
+GPL1352	[U133_X3P] Affymetrix Human X3P Array	in situ oligonucleotide	Homo sapiens	61359	u133x3p.db	pd.u133.x3p
+GPL1355	[Rat230_2] Affymetrix Rat Genome 230 2.0 Array	in situ oligonucleotide	Rattus norvegicus	31099	rat2302.db	pd.rat230.2
+GPL1857	[Mu6500subA] Affymetrix Murine Genome 6500A Array	in situ oligonucleotide	Mus musculus	1632	-	-
+GPL2004	[Mapping50K_Hind240] Affymetrix Human Mapping 50K Hind240 SNP Array	in situ oligonucleotide	Homo sapiens	57299	-	pd.mapping50k.hind240
+GPL2005	[Mapping50K_Xba240] Affymetrix Human Mapping 50K Xba240 SNP Array	in situ oligonucleotide	Homo sapiens	59015	-	pd.mapping50k.xba240
+GPL2025	[Rice] Affymetrix Rice Genome Array	in situ oligonucleotide	Oryza sativa	57381	-	pd.rice
+GPL2112	[Bovine] Affymetrix Bovine Genome Array	in situ oligonucleotide	Bos taurus	24128	bovine.db	pd.bovine
+GPL2529	[Yeast_2] Affymetrix Yeast Genome 2.0 Array	in situ oligonucleotide	Saccharomyces cerevisiae;Schizosaccharomyces pombe	10928	yeast2.db	pd.yeast.2
+GPL2641	[Mapping10K_Xba142] Affymetrix Human Mapping 10K 2.0 Array	in situ oligonucleotide	Homo sapiens	10208	-	-
+GPL3154	[E_coli_2] Affymetrix E. coli Genome 2.0 Array	in situ oligonucleotide	Escherichia coli	10208	ecoli2.db	-
+GPL3213	[Chicken] Affymetrix Chicken Genome Array	in situ oligonucleotide	Gallus gallus	38535	chicken.db	pd.chicken
+GPL3533	[Porcine] Affymetrix Porcine Genome Array	in situ oligonucleotide	Sus scrofa	24123	porcine.db	pd.porcine
+GPL3535	[Rhesus] Affymetrix Rhesus Macaque Genome Array	in situ oligonucleotide	Macaca mulatta	52865	-	pd.rhesus
+GPL3718	[Mapping250K_Nsp] Affymetrix Mapping 250K Nsp SNP Array	in situ oligonucleotide	Homo sapiens	262338	-	pd.mapping250k.nsp
+GPL3720	[Mapping250K_Sty] Affymetrix Mapping 250K Sty2 SNP Array	in situ oligonucleotide	Homo sapiens	238378	-	pd.mapping250k.sty
+GPL3738	[Canine_2] Affymetrix Canine Genome 2.0 Array	in situ oligonucleotide	Canis lupus familiaris	43035	canine2.db	pd.canine.2
+GPL3802	[wheat] Affymetrix Wheat Genome Array	in situ oligonucleotide	Triticum aestivum	61290	-	pd.wheat
+GPL3844	[Sugar_Cane] Affymetrix Sugar Cane Genome Array	in situ oligonucleotide	Saccharum officinarum	8387	-	pd.sugar.cane
+GPL3921	[HT_HG-U133A] Affymetrix HT Human Genome U133A Array	in situ oligonucleotide	Homo sapiens	22277	hthgu133a.db	pd.ht.hg.u133a
+GPL3979	[Canine] Affymetrix Canine Genome 1.0 Array	in situ oligonucleotide	Canis lupus familiaris	23913	canine.db	pd.canine
+GPL4032	[Maize] Affymetrix Maize Genome Array	in situ oligonucleotide	Zea mays	17734	-	pd.maize
+GPL4359	[Poplar] Affymetrix Poplar Genome Array	in situ oligonucleotide	Populus sp.	61413	-	pd.poplar
+GPL4519	[TB-All-Antisense] Affymetrix M. tuberculosis Antisense Array	in situ oligonucleotide	Mycobacterium tuberculosis H37Rv	6022	-	-
+GPL4592	[Soybean] Affymetrix Soybean Genome Array	in situ oligonucleotide	Glycine max	61170	-	pd.soybean
+GPL4652	[Medicago] Affymetrix Medicago Genome Array	in situ oligonucleotide	Medicago sativa;Medicago truncatula;Sinorhizobium meliloti	61278	-	pd.medicago
+GPL4741	[Tomato] Affymetrix Tomato Genome Array	in situ oligonucleotide	Solanum lycopersicum	10209	-	pd.tomato
+GPL4910	[Hs35b_P01R] Affymetrix Human Tiling 2.0R Set, Array 1	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL4911	[Hs35b_P02R] Affymetrix Human Tiling 2.0R Set, Array 2	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL4912	[Hs35b_P03R] Affymetrix Human Tiling 2.0R Set, Array 3	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL4913	[Hs35b_P04R] Affymetrix Human Tiling 2.0R Set, Array 4	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL4914	[Hs35b_P05R] Affymetrix Human Tiling 2.0R Set, Array 5	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL4915	[Hs35b_P06R] Affymetrix Human Tiling 2.0R Set, Array 6	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL4916	[Hs35b_P07R] Affymetrix Human Tiling 2.0R Set, Array 7	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL4940	[Ecoli_antisense] Affymetrix E. coli 1286 Antisense Array	in situ oligonucleotide	Escherichia coli K-12	4405	-	-
+GPL5082	[Hs_PromPR] Affymetrix Human Promoter 1.0R Array	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL5175	[HuEx-1_0-st] Affymetrix Human Exon 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Homo sapiens	316919	huex10sttranscriptcluster.db	pd.huex.1.0.st.v2
+GPL5188	[HuEx-1_0-st] Affymetrix Human Exon 1.0 ST Array [probe set (exon) version]	in situ oligonucleotide	Homo sapiens	1432155	huex10stprobeset.db	pd.huex.1.0.st.v2
+GPL5521	[Bacillus_anthraci530025] Affymetrix Bacillus anthracis Array	in situ oligonucleotide	Bacillus anthracis	8079	-	-
+GPL5634	[Ce25b_MR] Affymetrix C. elegans Tiling 1.0R Array	in situ oligonucleotide	Caenorhabditis elegans	0	-	-
+GPL5731	[Citrus] Affymetrix Citrus Genome Array	in situ oligonucleotide	Citrus sinensis	30395	-	pd.citrus
+GPL5811	[Mm_PromPR] Affymetrix Mouse Promoter 1.0R Array	in situ oligonucleotide	Mus musculus	0	-	-
+GPL5919	[Dm35b_MR] Affymetrix Drosophila Tiling 1.0R Array	in situ oligonucleotide	Drosophila melanogaster	0	-	-
+GPL6096	[MoEx-1_0-st] Affymetrix Mouse Exon 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Mus musculus	283952	moex10sttranscriptcluster.db	pd.moex.1.0.st.v1
+GPL6156	[Hs35b_M01R] Affymetrix Human Tiling 1.0R Set, Array 1	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL6157	[Hs35b_M02R] Affymetrix Human Tiling 1.0R Set, Array 2	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL6158	[Hs35b_M03R] Affymetrix Human Tiling 1.0R Set, Array 3	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL6159	[Hs35b_M04R] Affymetrix Human Tiling 1.0R Set, Array 4	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL6160	[Hs35b_M05R] Affymetrix Human Tiling 1.0R Set, Array 5	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL6161	[Hs35b_M06R] Affymetrix Human Tiling 1.0R Set, Array 6	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL6162	[Hs35b_M07R] Affymetrix Human Tiling 1.0R Set, Array 7	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL6163	[Hs35b_M08R] Affymetrix Human Tiling 1.0R Set, Array 8	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL6164	[Hs35b_M09R] Affymetrix Human Tiling 1.0R Set, Array 9	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL6165	[Hs35b_M10R] Affymetrix Human Tiling 1.0R Set, Array 10	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL6166	[Hs35b_M11R] Affymetrix Human Tiling 1.0R Set, Array 11	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL6167	[Hs35b_M12R] Affymetrix Human Tiling 1.0R Set, Array 12	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL6168	[Hs35b_M13R] Affymetrix Human Tiling 1.0R Set, Array 13	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL6169	[Hs35b_M14R] Affymetrix Human Tiling 1.0R Set, Array 14	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL6193	[MoEx-1_0-st] Affymetrix Mouse Exon 1.0 ST Array [probe set (exon) version]	in situ oligonucleotide	Mus musculus	1256831	moex10stprobeset.db	pd.moex.1.0.st.v1
+GPL6194	[RaEx-1_0-st] Affymetrix Rat Exon 1.0 ST Array [probe set (exon) version]	in situ oligonucleotide	Rattus norvegicus	1064901	raex10stprobeset.db	pd.raex.1.0.st.v1
+GPL6244	[HuGene-1_0-st] Affymetrix Human Gene 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Homo sapiens	33297	hugene10sttranscriptcluster.db	pd.hugene.1.0.st.v1
+GPL6246	[MoGene-1_0-st] Affymetrix Mouse Gene 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Mus musculus	35557	mogene10sttranscriptcluster.db	pd.mogene.1.0.st.v1
+GPL6247	[RaGene-1_0-st] Affymetrix Rat Gene 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Rattus norvegicus	29215	ragene10sttranscriptcluster.db	pd.ragene.1.0.st.v1
+GPL6444	[Mm35b_P01R] Affymetrix Mouse Tiling 2.0R Set, Array 1	in situ oligonucleotide	Mus musculus	0	-	-
+GPL6445	[Mm35b_P02R] Affymetrix Mouse Tiling 2.0R Set, Array 2	in situ oligonucleotide	Mus musculus	0	-	-
+GPL6446	[Mm35b_P03R] Affymetrix Mouse Tiling 2.0R Set, Array 3	in situ oligonucleotide	Mus musculus	0	-	-
+GPL6447	[Mm35b_P04R] Affymetrix Mouse Tiling 2.0R Set, Array 4	in situ oligonucleotide	Mus musculus	0	-	-
+GPL6448	[Mm35b_P05R] Affymetrix Mouse Tiling 2.0R Set, Array 5	in situ oligonucleotide	Mus musculus	0	-	-
+GPL6449	[Mm35b_P06R] Affymetrix Mouse Tiling 2.0R Set, Array 6	in situ oligonucleotide	Mus musculus	0	-	-
+GPL6450	[Mm35b_P07R] Affymetrix Mouse Tiling 2.0R Set, Array 7	in situ oligonucleotide	Mus musculus	0	-	-
+GPL6543	[RaEx-1_0-st] Affymetrix Rat Exon 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Rattus norvegicus	361289	raex10sttranscriptcluster.db	pd.raex.1.0.st.v1
+GPL6629	[DM_tiling2_MR] Affymetrix Drosophila Tiling 2.0R Array	in situ oligonucleotide	Drosophila melanogaster	0	-	-
+GPL6732	Affymetrix GeneChip Human Genome U133 Plus 2.0 Array based on a custom CDF (REFSEQ_7)	in situ oligonucleotide	Homo sapiens	26714	?	?
+GPL6801	[GenomeWideSNP_6] Affymetrix Genome-Wide Human SNP 6.0 Array	in situ oligonucleotide	Homo sapiens	1880794	-	pd.genomewidesnp.6
+GPL6804	[GenomeWideSNP_5] Affymetrix Genome-Wide Human SNP 5.0 Array	in situ oligonucleotide	Homo sapiens	949274	-	pd.genomewidesnp.5
+GPL6872	Affymetrix GeneChip Rat Genome 230 2.0 Array [CDF: Brainarray_Rn230_Rn_UG_v10.cdf]	in situ oligonucleotide	Rattus norvegicus	18698	?	?
+GPL7218	OUHSC_Neisseria gonorrhoeae_MPAUT1a520274F	in situ oligonucleotide	Neisseria gonorrhoeae	1925	-	-
+GPL7249	[Sc03b_MF] Affymetrix GeneChip S. cerevisiae Tiling 1.0F Array	in situ oligonucleotide	Saccharomyces cerevisiae	0	-	-
+GPL7250	[Sc03b_MR] Affymetrix GeneChip S. cerevisiae Tiling 1.0R Array	in situ oligonucleotide	Saccharomyces cerevisiae	0	-	-
+GPL7280	Pathwork Diagnostics Pathchip	in situ oligonucleotide	Homo sapiens	22300	-	-
+GPL7598	Affymetrix GeneChip Rat Genome 230 2.0 Array (CDF: rat2302rnentrezgcdf_11.0.1)	in situ oligonucleotide	Rattus norvegicus	11484	rat2302.db	pd.rat230.2
+GPL7715	[Sp20b_M] Affymetrix S. pombe Tiling 1.0FR Array	in situ oligonucleotide	Schizosaccharomyces pombe	0	-	-
+GPL8036	Affymetrix GeneChip Universal 70K Tag Array	in situ oligonucleotide	Homo sapiens	50000	-	-
+GPL8300	[HG_U95Av2] Affymetrix Human Genome U95 Version 2 Array	in situ oligonucleotide	Homo sapiens	12625	hgu95av2.db	pd.hg.u95av2
+GPL8321	[Mouse430A_2] Affymetrix Mouse Genome 430A 2.0 Array	in situ oligonucleotide	Mus musculus	22690	mouse430a2.db	pd.mouse430a.2
+GPL8672	[Cotton] Affymetrix Cotton Genome Array	in situ oligonucleotide	Gossypium arboreum;Gossypium barbadense;Gossypium hirsutum;Gossypium raimondii	24132	-	pd.cotton
+GPL8759	[HT_MG-430A] Affymetrix HT Mouse Genome 430A Array	in situ oligonucleotide	Mus musculus	22716	-	pd.ht.mg.430a
+GPL8760	[HT_MG-430B] Affymetrix HT Mouse Genome 430B Array	in situ oligonucleotide	Mus musculus	22601	-	-
+GPL8786	[miRNA-1] Affymetrix Multispecies miRNA-1 Array	in situ oligonucleotide	synthetic construct	7815	-	pd.mirna.1.0
+GPL9102	Affymetrix Human Genome U133 Plus 2.0 Array [individual probe level version]	in situ oligonucleotide	Homo sapiens	604258	hgu133plus2.db	pd.hg.u133.plus.2
+GPL9188	Affymetrix GeneChip Human Genome U133A 2.0 Array [CDF: Brainarray Version 10, Hs133Av2_Hs_ENTREZG]	in situ oligonucleotide	Homo sapiens	11961	hgu133a2.db	pd.hg.u133a.2
+GPL9197	[HT_HG-U133B] Affymetrix HT Human Genome U133B Array	in situ oligonucleotide	Homo sapiens	22665	hthgu133b.db	-
+GPL9199	Affymetrix GeneChip Rat Genome 230 2.0 Array (CDF: Rat2302_Rn_ENTREZG.cdf version 12.0.0)	in situ oligonucleotide	Rattus norvegicus	11484	rat2302.db	pd.rat230.2
+GPL9286	Yeast 2.7M whole genome tiling array (Sc03b_MR_V04)	in situ oligonucleotide	Saccharomyces cerevisiae	2697594	-	-
+GPL9324	Affymetrix GeneChip Human Genome 133 Plus 2.0 Array [CDF: Brainarray Version 11, hgu133plus2hsentrezg]	in situ oligonucleotide	Homo sapiens	17788	hgu133plus2.db	pd.hg.u133.plus.2
+GPL10063	[HuGene-1_0-st] Affymetrix Human Gene 1.0 ST Array (CDF: HuGene10stv1_Hs_REFSEQ.cdf)	in situ oligonucleotide	Homo sapiens	29875	hugene10stprobeset.db	pd.hugene.1.0.st.v1
+GPL10263	[X_tropicalis] Affymetrix Xenopus tropicalis Genome Array	in situ oligonucleotide	Xenopus tropicalis	59021	-	pd.x.tropicalis
+GPL10397	[S_pneumoni530157] Affymetrix Streptococcus pneumoniae TIGR4 Array	in situ oligonucleotide	Streptococcus pneumoniae TIGR4	3025	-	-
+GPL10520	[HuEx-1_0-st] Affymetrix Human Exon 1.0 ST Array [HuEx-1_0-st-v2,mainR3,A20071112,EP.cdf]	in situ oligonucleotide	Homo sapiens	1432155	huex10stprobeset.db	pd.huex.1.0.st.v2
+GPL10585	[HuEx-1_0-st] Affymetrix Human Exon 1.0 ST Array [probe set (exon) custom CDF: HuEx10stv2_Hs_VEGAE.cdf (v10)]	in situ oligonucleotide	Homo sapiens	315922	huex10stprobeset.db	pd.huex.1.0.st.v2
+GPL10588	[HuEx-1_0-st] Affymetrix Human Exon 1.0 ST Array [transcript (gene) custom CDF: HuEx10stv2_Hs_VEGAG.cdf (v10)]	in situ oligonucleotide	Homo sapiens	30839	huex10sttranscriptcluster.db	pd.huex.1.0.st.v2
+GPL10739	[HuGene-1_0-st] Affymetrix Human Gene 1.0 ST Array [probe set (exon) version]	in situ oligonucleotide	Homo sapiens	257430	hugene10stprobeset.db	pd.hugene.1.0.st.v1
+GPL10740	[MoGene-1_0-st] Affymetrix Mouse Gene 1.0 ST Array [probe set (exon) version]	in situ oligonucleotide	Mus musculus	241576	mogene10stprobeset.db	pd.mogene.1.0.st.v1
+GPL10741	[RaGene-1_0-st] Affymetrix Rat Gene 1.0 ST Array [probe set (exon) version]	in situ oligonucleotide	Rattus norvegicus	213067	ragene10stprobeset.db	pd.ragene.1.0.st.v1
+GPL10756	[X_laevis_2] Affymetrix Xenopus laevis Genome 2.0 Array	in situ oligonucleotide	Xenopus laevis	32635	-	pd.x.laevis.2
+GPL10977	[At35b_MR] Affymetrix Arabidopsis Tiling 1.0R Array	in situ oligonucleotide	Arabidopsis thaliana	0	-	-
+GPL10978	[At35b_MF] Affymetrix Arabidopsis Tiling 1.0F Array	in situ oligonucleotide	Arabidopsis thaliana	0	-	-
+GPL10983	[Mitochip_2] Affymetrix Human Mitochondrial Resequencing Array 2.0	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL11084	Affymetrix GeneChip Human Genome U133 Plus 2.0 Array [CDF: Brainarray Version 12.1.0, hgu133plus2hsentrezg]	in situ oligonucleotide	Homo sapiens	17788	hgu133plus2.db	pd.hg.u133.plus.2
+GPL11157	[Cytogenetics_Array] Affymetrix Cytogenetics Whole-Genome 2.7M Array	in situ oligonucleotide	Homo sapiens	2795708	-	pd.cytogenetics.array
+GPL11180	[HT_MG-430_PM] Affymetrix HT MG-430 PM Array Plate	in situ oligonucleotide	Mus musculus	45141	-	pd.ht.mg.430a
+GPL11397	[Dm35b_MF] Affymetrix Drosophila Tiling 1.0F Array	in situ oligonucleotide	Drosophila melanogaster	0	-	-
+GPL11532	[HuGene-1_1-st] Affymetrix Human Gene 1.1 ST Array [transcript (gene) version]	in situ oligonucleotide	Homo sapiens	33297	hugene11sttranscriptcluster.db	pd.hugene.1.1.st.v1
+GPL11533	[MoGene-1_1-st] Affymetrix Mouse Gene 1.1 ST Array [transcript (gene) version]	in situ oligonucleotide	Mus musculus	35556	mogene11sttranscriptcluster.db	pd.mogene.1.1.st.v1
+GPL11534	[RaGene-1_1-st] Affymetrix Rat Gene 1.1 ST Array [transcript (gene) version]	in situ oligonucleotide	Rattus norvegicus	29214	ragene11sttranscriptcluster.db	pd.ragene.1.1.st.v1
+GPL11536	[HuGene-1_1-st] Affymetrix Human Gene 1.1 ST Array [probe set (exon) version]	in situ oligonucleotide	Homo sapiens	257430	hugene11stprobeset.db	pd.hugene.1.1.st.v1
+GPL11537	[MoGene-1_1-st] Affymetrix Mouse Gene 1.1 ST Array [probe set (exon) version]	in situ oligonucleotide	Mus musculus	241576	mogene11stprobeset.db	pd.mogene.1.1.st.v1
+GPL13147	[MOUSEDIVm520650] Affymetrix Mouse Diversity Genotyping Array	in situ oligonucleotide	Mus musculus	2458697	-	-
+GPL13158	[HT_HG-U133_Plus_PM] Affymetrix HT HG-U133+ PM Array Plate	in situ oligonucleotide	Homo sapiens	54715	-	pd.ht.hg.u133.plus.pm
+GPL13194	[Mm35b_M01R_v01] Affymetrix Mouse Tiling 1.1R Array Set	in situ oligonucleotide	Mus musculus	0	-	-
+GPL13195	[Mm35b_M02R_v01] Affymetrix Mouse Tiling 1.1R Array Set	in situ oligonucleotide	Mus musculus	0	-	-
+GPL13196	[Mm35b_M03R_v01] Affymetrix Mouse Tiling 1.1R Array Set	in situ oligonucleotide	Mus musculus	0	-	-
+GPL13197	[Mm35b_M04R_v01] Affymetrix Mouse Tiling 1.1R Array Set	in situ oligonucleotide	Mus musculus	0	-	-
+GPL13198	[Mm35b_M05R_v01] Affymetrix Mouse Tiling 1.1R Array Set	in situ oligonucleotide	Mus musculus	0	-	-
+GPL13199	[Mm35b_M06R_v01] Affymetrix Mouse Tiling 1.1R Array Set	in situ oligonucleotide	Mus musculus	0	-	-
+GPL13200	[Mm35b_M07R_v01] Affymetrix Mouse Tiling 1.1R Array Set	in situ oligonucleotide	Mus musculus	0	-	-
+GPL13201	[Mm35b_M08R_v01] Affymetrix Mouse Tiling 1.1R Array Set	in situ oligonucleotide	Mus musculus	0	-	-
+GPL13202	[Mm35b_M09R_v01] Affymetrix Mouse Tiling 1.1R Array Set	in situ oligonucleotide	Mus musculus	0	-	-
+GPL13203	[Mm35b_M10R_v01] Affymetrix Mouse Tiling 1.1R Array Set	in situ oligonucleotide	Mus musculus	0	-	-
+GPL13204	[Mm35b_M11R_v01] Affymetrix Mouse Tiling 1.1R Array Set	in situ oligonucleotide	Mus musculus	0	-	-
+GPL13205	[Mm35b_M12R_v01] Affymetrix Mouse Tiling 1.1R Array Set	in situ oligonucleotide	Mus musculus	0	-	-
+GPL13206	[Mm35b_M13R_v01] Affymetrix Mouse Tiling 1.1R Array Set	in situ oligonucleotide	Mus musculus	0	-	-
+GPL13207	[Mm35b_M14R_v01] Affymetrix Mouse Tiling 1.1R Array Set	in situ oligonucleotide	Mus musculus	0	-	-
+GPL13270	Affymetrix OncoScanβ„Ά FFPE Express	in situ oligonucleotide	Homo sapiens	330007	-	-
+GPL13667	[HG-U219] Affymetrix Human Genome U219 Array	in situ oligonucleotide	Homo sapiens	49386	hgu219.db	pd.hg.u219
+GPL14187	[HT_Rat-Focus] Affymetrix HT Rat Focus Array	in situ oligonucleotide	Rattus norvegicus	24249	-	-
+GPL14613	[miRNA-2] Affymetrix Multispecies miRNA-2 Array	in situ oligonucleotide	synthetic construct	20715	-	pd.mirna.2.0
+GPL14661	[Mouse430_2_Mm_EntrezG] Affymetrix GeneChip Mouse Genome 430 2.0 Array [Brainarray Version 13]	in situ oligonucleotide	Mus musculus	16556	mouse4302.db	pd.mouse430.2
+GPL14976	Affymetrix GeneChip Rat Genome 230 2.0 Array [custom CDF: Rn230_Rn_UG_v9]	in situ oligonucleotide	Rattus norvegicus	16944	rat2302.db	pd.rat230.2
+GPL15207	[PrimeView] Affymetrix Human Gene Expression Array	in situ oligonucleotide	Homo sapiens	49395	-	-
+GPL15315	Affymetrix Genome-Wide Human SNP 6.0 Array	in situ oligonucleotide	Homo sapiens	22519	-	pd.genomewidesnp.6
+GPL15394	Affymetrix GeneChip Human Genome U133 Plus 2.0 Array based on a custom CDF (REFSEQ_14)	in situ oligonucleotide	Homo sapiens	35200	hgu133plus2.db	pd.hg.u133.plus.2
+GPL15424	[HuGene-1_0-st] Affymetrix Human Gene 1.0 ST Array [HuGene10stv1_Hs_ENST]	in situ oligonucleotide	Homo sapiens	105342	hugene10sttranscriptcluster.db	pd.hugene.1.0.st.v1
+GPL15798	Affymetrix HT HG-U133+ PM Array Plate [CDF: HTHGU133PlusPM_Hs_ENTREZG_v14]	in situ oligonucleotide	Homo sapiens	18909	-	pd.ht.hg.u133.plus.pm
+GPL15803	[HG-U219] Affymetrix Human Genome U219 Array (ENSG Brainarray CDF Version 14.1.0)	in situ oligonucleotide	Homo sapiens	17617	hgu219.db	pd.hg.u219
+GPL16131	[CytoScanHD_Array] Affymetrix CytoScan HD Array	in situ oligonucleotide	Homo sapiens	2822125	-	-
+GPL16251	[Rat230_2] Affymetrix Rat Genome 230 2.0 Array [CDF: Version 13.0.0, ENSG]	in situ oligonucleotide	Rattus norvegicus	11462	rat2302.db	pd.rat230.2
+GPL16368	[Mouse4302_Mm_ENTREZG] Affymetrix GeneChip Mouse Genome 430 2.0 Array [Brainarray Version 16]	in situ oligonucleotide	Mus musculus	17566	mouse4302.db	pd.mouse430.2
+GPL16384	[miRNA-3] Affymetrix Multispecies miRNA-3 Array	in situ oligonucleotide	synthetic construct	25533	-	pd.mirna.3.0
+GPL16493	[PorGene-1_0-st] Porcine Gene 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Sus scrofa	27558	-	pd.porgene.1.0.st
+GPL16500	[BovGene-1_0-st] Bovine Gene 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Bos taurus	26773	-	pd.bovgene.1.0.st
+GPL16542	[Tgondiia520372] ToxoDB Toxoplasma gondii Custom GeneChip (CDF: Tgondiia520372.cdf)	in situ oligonucleotide	Toxoplasma gondii	8993	-	-
+GPL16570	[MoGene-2_0-st] Affymetrix Mouse Gene 2.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Mus musculus	41801	mogene20sttranscriptcluster.db	pd.mogene.2.0.st
+GPL16686	[HuGene-2_0-st] Affymetrix Human Gene 2.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Homo sapiens	53981	hugene20sttranscriptcluster.db	pd.hugene.2.0.st
+GPL16763	[Mouse430A_2] Affymetrix Mouse Genome 430A 2.0 Array [CDF: Brainarray V.10, Mm430A_Mm_ENTREZG_v10]	in situ oligonucleotide	Mus musculus	12175	mouse4302.db	pd.mouse430a.2
+GPL16788	[FinGene-1_0-st] Zebra Finch Gene 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Taeniopygia guttata	28296	-	pd.fingene.1.0.st
+GPL16933	[ZebGene-1_0-st] Zebrafish Gene 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Danio rerio	75212	-	pd.zebgene.1.0.st
+GPL16985	[HT_Rat230_PM] Affymetrix HT RG-230 PM Array Plate	in situ oligonucleotide	Rattus norvegicus	31139	-	-
+GPL17015	[RheGene-1_0-st] Rhesus Gene 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Macaca mulatta	40489	-	pd.rhegene.1.0.st
+GPL17117	[RaGene-2_0-st] Affymetrix Rat Gene 2.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Rattus norvegicus	36875	ragene20sttranscriptcluster.db	pd.ragene.2.0.st
+GPL17133	[AraGene-1_1-st] Arabidopsis Gene 1.1 ST Array [transcript (gene) version]	in situ oligonucleotide	Arabidopsis thaliana	38408	-	pd.aragene.1.1.st
+GPL17400	[MoGene-2_1-st] Affymetrix Mouse Gene 2.1 ST Array [transcript (gene) version]	in situ oligonucleotide	Mus musculus	41345	mogene21sttranscriptcluster.db	pd.mogene.2.1.st
+GPL17403	[CanGene-1_0-st] Canine Gene 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Canis lupus familiaris	32391	-	pd.cangene.1.0.st
+GPL17408	[MoGene-2_0-st] Affymetrix Mouse Gene 2.0 ST Array [mogene20st_Mm_ENSG_17]	in situ oligonucleotide	Mus musculus	27835	mogene20sttranscriptcluster.db	pd.mogene.2.0.st
+GPL17416	[AraGene-1_0-st] Arabidopsis Gene 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Arabidopsis thaliana	38506	mogene20sttranscriptcluster.db	pd.aragene.1.0.st
+GPL17506	[DroGene-1_1-st] Drosophila Gene 1.1 ST Array [transcript (gene) version]	in situ oligonucleotide	Drosophila melanogaster	50525	-	pd.drogene.1.1.st
+GPL17585	[HTA-2_0] Affymetrix Human Transcriptome Array 2.0 [probe set (exon) version]	in situ oligonucleotide	Homo sapiens	925032	hta20probeset.db	pd.hta.2.0
+GPL17586	[HTA-2_0] Affymetrix Human Transcriptome Array 2.0 [transcript (gene) version]	in situ oligonucleotide	Homo sapiens	70753	hta20transcriptcluster.db	pd.hta.2.0
+GPL17692	[HuGene-2_1-st] Affymetrix Human Gene 2.1 ST Array [transcript (gene) version]	in situ oligonucleotide	Homo sapiens	53617	hugene21sttranscriptcluster.db	pd.hugene.2.1.st
+GPL17977	[Axiom_GW_EUR] Affymetrix Axiom Genome-Wide EUR 1 Array Plate	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL18123	[EquGene-1_0-st] Equus caballus Gene 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Equus caballus	30559	-	pd.equgene.1.0.st
+GPL18189	[HG-U219] Affymetrix Human Genome U219 Array [CDF: Brainarray HGU219_Hs_ENTREZG_15.1.0]	in situ oligonucleotide	Homo sapiens	18567	hgu219.db	pd.hg.u219
+GPL18190	[HuGene-1_1-st] Affymetrix Human Gene 1.1 ST Array [CDF: Brainarray HuGene11stv1_Hs_ENTREZG_15.1.0]	in situ oligonucleotide	Homo sapiens	19682	hugene11sttranscriptcluster.db	pd.hugene.1.1.st.v1
+GPL18233	[MoGene-2_0-st] Affymetrix Mouse Gene 2.0 ST Array [probe set (exon) version]	in situ oligonucleotide	Mus musculus	269751	mogene20stprobeset.db	pd.mogene.2.0.st
+GPL18240	[MedGene-1_0] Affymetrix Medicago Gene 1.0 ST Array [probe set (exon) version]	in situ oligonucleotide	Medicago	108905	-	pd.medgene.1.0.st
+GPL18258	[Axiom_GW_Bos_SNP_1] Affymetrix Axiom Genome-Wide BOS 1 Array Plate	in situ oligonucleotide	Bos taurus	0	-	-
+GPL18349	[AraGene-1_0-st] Arabidopsis Gene 1.0 ST Array [probe set (exon) version]	in situ oligonucleotide	Arabidopsis thaliana	179298	-	pd.aragene.1.0.st
+GPL18368	[ChiGene-1_0-st] Affymetrix Chicken Gene 1.0 ST Array [probeset version]	in situ oligonucleotide	Gallus gallus	165995	-	pd.chigene.1.0.st
+GPL18401	[HuGene-1_0-st] Affymetrix Human Gene 1.0 ST Array [AltAnalyze probeset-to-Ensembl mapping]	in situ oligonucleotide	Homo sapiens	25465	hugene10stprobeset.db	pd.hugene.1.0.st.v1
+GPL18441	[Axiom_GW_Hu_SNP] Affymetrix Axiom Genome-Wide CEU 1 Array Plate	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL18476	[HuGene-2_0-st] Affymetrix Human Gene 2.0 ST Array [hugene20st_Hs_ENSG]	in situ oligonucleotide	Homo sapiens	32633	hugene20sttranscriptcluster.db	pd.hugene.2.0.st
+GPL18478	[HG_U133A 2.0_Hs_ENTREZG_V13] Affymetrix GeneChip  HG_U133 V2.0 Array [Brainarray Entrez Version 13]	in situ oligonucleotide	Homo sapiens	12065	hgu133a2.db	pd.hg.u133a.2
+GPL18602	[OncoScan] Affymetrix OncoScan FFPE Assay	in situ oligonucleotide	Homo sapiens	239038	-	-
+GPL18612	[TrueTag_10K_A] Rat Mapping 10K SNP	in situ oligonucleotide	Rattus norvegicus	10846	-	-
+GPL18637	[CytoScan750K_Array] Affymetrix CytoScan 750K Array	in situ oligonucleotide	Homo sapiens	0	-	-
+GPL18676	[RaGene-2_0-st] Affymetrix Rat Gene 2.0 ST Array [probe set (exon) version]	in situ oligonucleotide	Rattus norvegicus	220231	ragene20stprobeset.db	pd.ragene.2.0.st
+GPL18695	[HuGene-1_0-st] Affymetrix Human Gene 1.0 ST Array [Hugene10st_Hs_ENST_16.0.0]	in situ oligonucleotide	Homo sapiens	134444	hugene10sttranscriptcluster.db	pd.hugene.1.0.st.v1
+GPL18699	[PorGene-1_1-st] Porcine Gene 1.1 ST Array [transcript (gene) version]	in situ oligonucleotide	Sus scrofa	27558	-	pd.porgene.1.1.st
+GPL18756	Affymetrix HG-U133_PLUS_2[CDF: HGU133Plus2_Hs_ENTREZG_14.1.0]	in situ oligonucleotide	Homo sapiens	19070	hgu133plus2.db	pd.hg.u133.plus.2
+GPL18778	[Axiom_Maize600] Affymetrix AxiomΒ® Maize Genotyping Array	in situ oligonucleotide	Zea mays	616201	-	-
+GPL18813	[Rat230_2] Affymetrix Rat Genome 230 2.0 Array [CDF: Version 15.1, ENTREZG]	in situ oligonucleotide	Rattus norvegicus	12031	rat2302.db	pd.rat230.2
+GPL18990	[Xcel] Affymetrix Human Almac Xcel Array	in situ oligonucleotide	Homo sapiens	110425	-	-
+GPL19014	[ChiGene-1_0-st] Affymetrix Chicken Gene 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Gallus gallus	20804	-	pd.chigene.1.0.st
+GPL19117	[miRNA-4] Affymetrix Multispecies miRNA-4 Array	in situ oligonucleotide	synthetic construct	36353	-	pd.mirna.4.0
+GPL19142	[HuGene-1_0-st] Affymetrix Human Gene 1.0 ST Array [transcript (gene) version] custom	in situ oligonucleotide	Homo sapiens	29056	hugene10sttranscriptcluster.db	pd.hugene.1.0.st.v1
+GPL19211	[HG-U219] Affymetrix Human Genome U219 Array (ENSG Brainarray CDF Version 17.1.0)	in situ oligonucleotide	Homo sapiens	17681	hgu219.db	pd.hg.u219
+GPL19230	[EleGene-1_0-st] Affymetrix C. elegans Gene 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Caenorhabditis elegans	29317	-	pd.elegene.1.0.st
+GPL19238	[ZebGene-1_0-st] Zebrafish Gene 1.0 ST Array [probe set (exon) version]	in situ oligonucleotide	Danio rerio	301091	-	pd.zebgene.1.0.st
+GPL19251	[HuGene-2_0-st] Affymetrix Human Gene 2.0 ST Array [probe set (exon) version]	in situ oligonucleotide	Homo sapiens	353131	hugene20stprobeset.db	pd.hugene.2.0.st
+GPL19271	[RaGene-2_1-st] Affymetrix Rat Gene 2.1 ST Array [transcript (gene) version]	in situ oligonucleotide	Rattus norvegicus	36685	ragene21sttranscriptcluster.db	pd.ragene.2.1.st
+GPL19309	[HT_HG-U133_Plus_PM] Affymetrix HT HG-U133+ PM Array Plate [CDF: HTHGU133PlusPM_Hs_ENTREZG_v15.1.0]	in situ oligonucleotide	Homo sapiens	18837	-	pd.ht.hg.u133.plus.pm
+GPL19480	[OviGene-1_1-st] Ovine Gene 1.1 ST Array [transcript (gene) version]	in situ oligonucleotide	Ovis aries	24595	-	pd.ovigene.1.1.st
+GPL19566	[RCnGene-1_0-st] Affymetrix Rice (Chinese Build) Gene 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Oryza sativa	41770	-	pd.rcngene.1.0.st
+GPL19774	[Scerevisiae_tlg] Affymetrix Saccharomyces cerevisiae tiling array	in situ oligonucleotide	Saccharomyces cerevisiae	0	-	-
+GPL19833	[HG-U219] Affymetrix Human Genome U219 Array (ENSG Brainarray CDF Version 18.0.0)	in situ oligonucleotide	Homo sapiens	17708	hgu219.db	pd.hg.u219
+GPL19846	Celegans_Ce_ENTREZG version 19.0.0, Alternative to GPL200	in situ oligonucleotide	Caenorhabditis elegans	16524	celegans.db	pd.celegans
+GPL19918	[HG-U133_Plus_2] Affymetrix Human Genome U133 Plus 2.0 Array [Gene-level, 10K]	in situ oligonucleotide	Homo sapiens	10177	hgu133plus2.db	pd.hg.u133.plus.2
+GPL19972	[MoGene-1_0-st] Affymetrix Mouse Gene 1.0 ST Array [alternative CDF: Brainarray MoGene10stv1_Mm_REFSEQ version 18]	in situ oligonucleotide	Mus musculus	29643	mogene10sttranscriptcluster.db	pd.mogene.1.0.st.v1
+GPL20041	[MoGene-2_1-st] Affymetrix Mouse Gene 2.1 ST Array [probe set (exon) version]	in situ oligonucleotide	Mus musculus	269751	mogene21stprobeset.db	pd.mogene.2.1.st
+GPL20131	[HT_HG-U133_Plus_PM] Affymetrix HT HG-U133+ PM Array Plate [CDF: HTHGU133PlusPM_Hs_ENST_19.0.0]	in situ oligonucleotide	Homo sapiens	80960	-	pd.ht.hg.u133.plus.pm
+GPL20182	[HG-U133_Plus_2] Affymetrix Human Genome U133 Plus 2.0 Array [Gene Symbol Version]	in situ oligonucleotide	Homo sapiens	20184	hgu133plus2.db	pd.hg.u133.plus.2
+GPL20205	[MoGene-1_0-st] Affymetrix Mouse Gene 1.0 ST Array [alternative CDF: Brainarray MoGene10stv1_Mm_REFSEQ_14.1.0]	in situ oligonucleotide	Mus musculus	28451	mogene10sttranscriptcluster.db	pd.mogene.1.0.st.v1
+GPL20258	[MTA-1_0] Affymetrix Mouse Transcriptome Array 1.0 [transcript (gene) CDF version]	in situ oligonucleotide	Mus musculus	72688	mta10transcriptcluster.db	pd.mta.1.0
+GPL20312	[ZebGene-1_1-st] Zebrafish Gene 1.1 ST Array [transcript (gene) version]	in situ oligonucleotide	Danio rerio	75212	-	pd.zebgene.1.1.st
+GPL20334	[EquGene-1_1-st] Equus caballus Gene 1.1 ST Array [transcript (gene) version]	in situ oligonucleotide	Equus caballus	30559	-	pd.equgene.1.1.st
+GPL20635	[HG-U133_Plus_2] Affymetrix Human Genome U133 Plus 2.0 Array	in situ oligonucleotide	Homo sapiens	19702	hgu133plus2.db	pd.hg.u133.plus.2
+GPL20695	[RheGene-1_1-st] Rhesus Gene 1.1 ST Array [transcript (gene) version]	in situ oligonucleotide	Macaca mulatta	40489	-	pd.rhegene.1.1.st
+GPL20762	[miRNA-3] Affymetrix Multispecies miRNA-3 Array [CDF: miRNA30_Hs_MIRBASEF_16.0.0]	in situ oligonucleotide	synthetic construct	3194	-	pd.mirna.3.0
+GPL20767	[DroGene-1_1-st] Drosophila Gene 1.1 ST Array [CDF: drogene10stdmenstcdf_18.0.0]	in situ oligonucleotide	Drosophila melanogaster	26731	-	pd.drogene.1.1.st
+GPL20768	[BovGene-1_1-st] Bovine Gene 1.1 ST Array [transcript (gene) version]	in situ oligonucleotide	Bos taurus	26773	-	pd.bovgene.1.1.st
+GPL20775	[MTA-1_0] Affymetrix Mouse Transcriptome Array 1.0 [transcript (gene) CSV version]	in situ oligonucleotide	Mus musculus	73070	mta10transcriptcluster.db	pd.mta.1.0
+GPL20842	[DroGene-1_0-st] Drosophila Gene 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Drosophila melanogaster	50525	-	pd.drogene.1.0.st
+GPL21092	[Mouse430A_2] Affymetrix Mouse Genome 430A 2.0 Array [CDF: Brainarray V.10, Mm430A_Mm_ENTREZG_v19]	in situ oligonucleotide	Mus musculus	12441	mouse430a2.db	pd.mouse430a.2
+GPL21243	[Axiom_Exome319] Affymetrix AxiomΒ® Exome Genotyping Array	in situ oligonucleotide	Homo sapiens	319283	-	-
+GPL21341	[MTA-1_0] Affymetrix Mouse Transcriptome Array 1.0 [probeset (exon) CDF version]	in situ oligonucleotide	Mus musculus	725678	mta10probeset.db	pd.mta.1.0
+GPL21360	[RCnGene-1_1-st] Affymetrix Rice Gene 1.1 ST Array [transcript (gene) version]	in situ oligonucleotide	Oryza sativa	41770	-	pd.rcngene.1.1.st
+GPL21385	[ChiGene-1_1-st] Affymetrix Chicken Gene 1.1 ST Array [transcript (gene) version]	in situ oligonucleotide	Gallus gallus	20804	-	pd.chigene.1.1.st
+GPL21468	[GuiGene-1_0-st] Affymetrix Guinea Pig Gene 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Cavia porcellus	28968	-	pd.guigene.1.0.st
+GPL21469	[GuiGene-1_0-st] Affymetrix Guinea Pig Gene 1.0 ST Array [probe set (exon) version]	in situ oligonucleotide	Cavia porcellus	174742	-	pd.guigene.1.0.st
+GPL21480	[Axiom_GW_Hu-CHB_SNP] Affymetrix Axiom Genome-Wide CHB 1 Array Plate	in situ oligonucleotide	Homo sapiens	657178	-	-
+GPL21514	[PorGene-1_0-st] Porcine Gene 1.0 ST Array [probe set (exon) version]	in situ oligonucleotide	Sus scrofa	144644	-	pd.porgene.1.0.st
+GPL21558	[OncoScan_CNV] Affymetrix OncoScan CNV FFPE Assay	in situ oligonucleotide	Homo sapiens	239038	-	-
+GPL21572	[miRNA-4] Affymetrix Multispecies miRNA-4 Array [ProbeSet ID version]	in situ oligonucleotide	synthetic construct	36353	-	pd.mirna.4.0
+GPL21593	[RUSGene-1_0-st] Affymetrix Rice (US) Gene 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Oryza sativa	54922	-	pd.rusgene.1.0.st
+GPL21716	[Axiom_Exome_1A] Affymetrix Axiom Exome 1A Array	in situ oligonucleotide	Homo sapiens	418064	-	-
+GPL21877	[MTA-1_0] Affymetrix Mouse Transcriptome Array 1.0	in situ oligonucleotide	Mus musculus	0	mta10transcriptcluster.db	pd.mta.1.0
+GPL22070	[MoGene-2_1-st] Affymetrix Mouse Gene 2.1 ST Array [transcript-level na35ens81]	in situ oligonucleotide	Mus musculus	31351	mogene21sttranscriptcluster.db	pd.mogene.2.1.st
+GPL22130	[RaGene-1_1-st] Affymetrix Rat Gene 1.1 ST Array [transcript (gene) version] [CDF: ragene11st_Rn_ENTREZG_17.1.0]	in situ oligonucleotide	Rattus norvegicus	19311	ragene11sttranscriptcluster.db	pd.ragene.1.1.st.v1
+GPL22299	[HuGene-2_1-st] Affymetrix Human Gene 2.1 ST Array [gene name version]	in situ oligonucleotide	Homo sapiens	24097	hugene21sttranscriptcluster.db	pd.hugene.2.1.st
+GPL22388	[RTA-1_0] Affymetrix Rat Transcriptome Array 1.0 [transcript (gene) CSV version]	in situ oligonucleotide	Rattus norvegicus	70580	rta10transcriptcluster.db	pd.rta.1.0
+GPL22530	[PorGene-1_0-st] Porcine Gene 1.0 ST Array [porgene10st_Ss_ENTREZG_17.0.0]	in situ oligonucleotide	Sus scrofa	17118	-	pd.porgene.1.0.st
+GPL22817	[FelGene-1_0] Feline Gene 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Felis catus	36007	-	pd.felgene.1.0.st
+GPL22936	[hta20_Hs_ENTREZG version 20] [HTA-2_0-st] GeneChip Human Transcriptome Array 2.0	in situ oligonucleotide	Homo sapiens	25736	hta20transcriptcluster.db	pd.hta.2.0
+GPL23038	[Clariom_S_Mouse] Affymetrix Clariom S Assay, Mouse (Includes Pico Assay)	in situ oligonucleotide	Mus musculus	29129	clariomsmousetranscriptcluster.db	pd.clariom.s.mouse
+GPL23040	[Clariom_S_Rat] Affymetrix Clariom S Assay, Rat (Includes Pico Assay)	in situ oligonucleotide	Rattus norvegicus	24871	clariomsrattranscriptcluster.db	pd.clariom.s.rat
+GPL23126	[Clariom_D_Human] Affymetrix Human Clariom D Assay [transcript (gene) version]	in situ oligonucleotide	Homo sapiens	138745	clariomdhumantranscriptcluster.db	pd.clariom.d.human
+GPL23159	[Clariom_S_Human] Affymetrix Clariom S Assay, Human (Includes Pico Assay)	in situ oligonucleotide	Homo sapiens	27189	clariomshumantranscriptcluster.db	pd.clariom.s.human
+GPL23181	[RaGene-1_1-st] Affymetrix Rat Gene 1.1 ST Array [transcript (gene) version] [CDF: ragene11st_Rn_ENTREZG_19.0.0]	in situ oligonucleotide	Rattus norvegicus	19357	ragene11sttranscriptcluster.db	pd.ragene.1.1.st.v1
+GPL23222	[FinGene-1_1] Zebra Finch Gene 1.0 ST Array [transcript (gene) version]	in situ oligonucleotide	Taeniopygia guttata	23713	-	pd.fingene.1.1.st
+GPL23319	[MoGene-1_1-st] Affymetrix Mouse Gene 1.1 ST Array [transcript-level na35ens81]	in situ oligonucleotide	Mus musculus	24625	mogene11sttranscriptcluster.db	pd.mogene.1.1.st.v1
+GPL23432	[HG-U133_Plus_2] Affymetrix Human Genome U133 Plus 2.0 Array [CDF: Brainarray ENSG Version 18.0.0]	in situ oligonucleotide	Homo sapiens	19947	hgu133plus2.db	pd.hg.u133.plus.2
+GPL23567	[CanGene-1_1-st] Canine Gene 1.1 ST Array [transcript (gene) version]	in situ oligonucleotide	Canis lupus familiaris	32391	-	pd.cangene.1.1.st
+GPL23629	[RTA-1_0] Affymetrix Rat Transcriptome Array 1.0 [probe set (exon) CSV version]	in situ oligonucleotide	Rattus norvegicus	717875	rta10probeset.db	pd.rta.1.0
+GPL24076	[CHOGene-2_1] GeneChip Chinese hamster ovary (CHO) Gene 2.1 ST Array [transcript (gene) version]	in situ oligonucleotide	Cricetulus griseus	30934	-	pd.chogene.2.1.st
+GPL24242	[Clariom_S_Mouse_HT] Affymetrix Clariom S Assay HT, Mouse (Includes Pico Assay)	in situ oligonucleotide	Mus musculus	29129	clariomsmousehttranscriptcluster.db	pd.clariom.s.mouse.ht
+GPL24324	[Clariom_S_Human_HT] Affymetrix Clariom S Assay HT, Human (Includes Pico Assay)	in situ oligonucleotide	Homo sapiens	27189	clariomshumanhttranscriptcluster.db	pd.clariom.s.human.ht
+GPL24539	[Clariom_D_Human] Affymetrix Human Clariom D Assay [probe set (exon) version]	in situ oligonucleotide	Homo sapiens	0	clariomdhumanprobeset.db	pd.clariom.d.human
+GPL25373	[HT_HG-U133_Plus_PM] Affymetrix HT HG-U133+ PM Array Plate [CDF: HTHGU133PlusPM_Hs_ENTREZG_20]	in situ oligonucleotide	Homo sapiens	19276	-	pd.ht.hg.u133.plus.pm
+GPL26140	[Clariom_S_Rat_HT] Affymetrix Clariom S Assay HT, Rat (Includes Pico Assay)	in situ oligonucleotide	Rattus norvegicus	24871	clariomsrathttranscriptcluster.db	pd.clariom.s.rat.ht
+GPL26157	[Clariom_S_Human_HT] Affymetrix Clariom S Assay HT, Human [gene level]	in situ oligonucleotide	Homo sapiens	19498	clariomshumanhttranscriptcluster.db	pd.clariom.s.human.ht
