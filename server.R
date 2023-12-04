@@ -469,7 +469,7 @@ shinyServer(function(input, output) {
                                                )
                       )%>% formatSignif(c('logFC','AveExpr','t','P.Value','adj.P.Val','B'),3)
                       
-                      gene_link <- paste0("<a href='", paste0("https://www.ncbi.nlm.nih.gov/gene?term=", degs$gene_symbol,
+                      gene_link <- paste0("<a href='", paste0("s://www.ncbi.nlm.nih.gov/gene?term=", degs$gene_symbol,
                                                               "[Gene Name] AND ", as.character(unique(phenodata$organism_ch1)), 
                                                               "[Organism]"),
                                           "' target='_blank'>", degs$gene_symbol,"</a>")
@@ -556,7 +556,7 @@ shinyServer(function(input, output) {
                                         collapseMethod="mean", referenceSet= input$chooseRefSet,
                                         minNum=10, maxNum=500, sigMethod="fdr", fdrMethod="BH", fdrThr=0.05, 
                                         reportNum=20, isOutput= T, outputDirectory=outputDir,
-                                        projectName=projectName, hostName= "http://www.webgestalt.org" )
+                                        projectName=projectName, hostName= "https://www.webgestalt.org" )
                             HTMLfile<- list.files(path = paste0(outputDir,"/Project_",projectName), pattern = ".html")
                             print(paste0("HTML file is ",HTMLfile))
                             projectPath<- paste0(outputDir,"/","Project_", projectName)
@@ -999,7 +999,7 @@ shinyServer(function(input, output) {
                                   collapseMethod="mean", referenceSet= input$chooseRefSet,
                                   minNum=10, maxNum=500, sigMethod="fdr", fdrMethod="BH", fdrThr=0.05, 
                                   reportNum=20, isOutput= T, outputDirectory=outputDir,
-                                  projectName=projectName, hostName= "http://www.webgestalt.org")
+                                  projectName=projectName, hostName= "https://www.webgestalt.org")
                       HTMLfile<- list.files(path = paste0(outputDir,"/Project_",projectName), pattern = ".html")
                       print(paste0("HTML file is ",HTMLfile))
                       projectPath<- paste0(outputDir,"/","Project_", projectName)
