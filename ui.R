@@ -296,12 +296,8 @@ shinyUI(fluidPage (
                               h4("Press the button to download the DE genes list"),
                               tags$head(tags$style(HTML('#down_csv{background-color:#B39DDB; color:#000000;font-weight:bold; border:0px;}'))),
                               tags$head(tags$style(HTML('#down_tsv{background-color:#B39DDB; color:#000000;font-weight:bold; border:0px;}'))),
-                              #tags$head(tags$style(HTML('#down_pdf{background-color:#B39DDB; color:#000000;font-weight:bold; border:0px;}'))),
                               downloadButton( outputId = "down_csv", label = ".csv file"),
-                              downloadButton( outputId = "down_tsv", label = ".tsv file"),
-                              #downloadButton( outputId = "down_degs_t", label = "degs file"),
-                              #downloadButton( outputId = "down_pdf", label = ".pdf file"),
-                              
+                              downloadButton( outputId = "down_tsv", label = ".tsv file"),                             
                               tags$head(tags$style(HTML('#table_info{background-color:#B39DDB; color:#000000;font-weight:bold; border:0px;}'))),
                               bsButton (inputId = "table_info", 
                                         label = icon(name = "info", class = ".fa-info"),
@@ -322,10 +318,7 @@ shinyUI(fluidPage (
                         bsTooltip("down_csv", "Click to download the DE genes list as a comma separated file", 
                                   placement = "left", trigger = "hover"),
                         bsTooltip("down_tsv", "Click to download the DE genes list as a tab separated file", 
-                                  placement = "left", trigger = "hover"),
-                        #bsTooltip("down_pdf", "Click to download the DE genes list as a pdf file. It may take a few minutes.", 
-                        #          placement = "left", trigger = "hover"),
-                        
+                                  placement = "left", trigger = "hover"),                      
                         bsPopover (id= "table_info",
                                    title = "<b>Table Info</b>",
                                    content =c("<p><b>probeID</b>= Affymetrix unique identifier assigned ",
@@ -433,11 +426,6 @@ shinyUI(fluidPage (
                               style = "text-align:center",
                               uiOutput(outputId= "users_guide_msg"),
                               uiOutput(outputId= "users_guide_view")
-                              #tags$head(tags$style(HTML('#users_guide{background-color:#B39DDB; color:#000000; 
-                              #                           font-weight:bold; border:0px; width:125px; padding:3px 0; text-align:center; margin:auto;}'))),
-                              #downloadButton( outputId="users_guide", label = "User's guide")
-                              #tags$iframe(style="height:400px; width:100%; scrolling=yes",
-                              #             src="c:/Users/Anna/Desktop/PhD/git/DExplore/GSE/Users_guide.pdf")
                         ),
                         hr()
               )
