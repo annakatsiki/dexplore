@@ -14,8 +14,6 @@ library(annotate)
 
 source('helpers.R')
 
-#setwd('../GSE')
-
 shinyServer(function(input, output) {
   shinyjs:: useShinyjs()  # Include shinyjs
   shinyjs::showElement("wait_msg5")
@@ -24,7 +22,6 @@ shinyServer(function(input, output) {
   print(paste0("working directory is ", getwd()))
   currentDir<- "./"
   ProjectDir<- dir (path = currentDir, pattern ="^Project", full.names = TRUE)
-  #unlink(paste0(ProjectDir,"*"), recursive = TRUE)
   unlink(file.path(getwd(),c("*.CEL", "*.gz", "*.txt.gz","*.txt", "*.tar"))) 
   print("*.CEL, *.tar, *.gz, *.txt.gz and *.txt are gone")
   print(list.files(path = getwd(), all.files = T, full.names = T, include.dirs = T))
@@ -103,7 +100,7 @@ shinyServer(function(input, output) {
       shinyjs::hideElement ("wait_msg4")
       if (length(gse)>0) {
         choose_platform <- TRUE
-        for (i in 1:length(gse)) { plat_choices <- c(plat_choices, annotation(gse[[i]])) } #class(plat_choices) >>> character
+        for (i in 1:length(gse)) { plat_choices <- c(plat_choices, annotation(gse[[i]])) } 
       }
       plat_df <- as.data.frame(plat_choices)
       for (i in 1:length(plat_choices)) { row.names(plat_df)[i]<- plat_choices[i] }
@@ -285,8 +282,6 @@ shinyServer(function(input, output) {
               }
               
               ###Creating targets.txt
-              #write.table(newpdata, file = "targets.txt", row.names = FALSE, quote = FALSE, sep = "\t")
-              #if (file.exists("targets.txt")) { print("targets.txt is ready!!!") }
               targets<-data.frame(newpdata)
               
               #run the analysis
@@ -309,10 +304,7 @@ shinyServer(function(input, output) {
                   gunzip(cF[i,], remove = FALSE, overwrite = T)
                   print(i)
                   i = i+1
-                }
-                
-                ###Reading targets.txt
-                #targets<- readTargets(file="targets.txt", sep="\t")
+                }              
                 print(targets)
                 
                 ###Reading Affy
@@ -360,15 +352,15 @@ shinyServer(function(input, output) {
                 cond<-pdataRel[,index]
                 batch<-as.factor(targets$replicate)
                 design<-model.matrix(~0 + cond + batch)
-                x_index <- grep(input$ctr, colnames(design), ignore.case = T) ###
-                y_index <- grep(input$tr, colnames(design), ignore.case = T) ###
+                x_index <- grep(input$ctr, colnames(design), ignore.case = T) 
+                y_index <- grep(input$tr, colnames(design), ignore.case = T) 
                 colnames(design)<-gsub("cond","",colnames(design))
                 colnames(design)<-gsub("atch","",colnames(design))
                 colnames(design)<- make.names(colnames(design))
                 fit<- lmFit(f2_e, design)
                 print(head(fit$coefficients))
-                x<- colnames(design)[x_index] ###
-                y<- colnames(design)[y_index] ###
+                x<- colnames(design)[x_index] 
+                y<- colnames(design)[y_index] 
                 s<- paste0(x,y,"=",y,"-",x)
                 contr<- do.call(makeContrasts, c(s,list(levels = design)))
                 fit2<-contrasts.fit(fit, contr)
@@ -409,7 +401,7 @@ shinyServer(function(input, output) {
                   gse_acc <- paste0("GSE", input$GSE)
                   gse<- getGEO(gse_acc, destdir = getwd(), GSEMatrix = T, getGPL = F)
                   a <- annotation(gse[[idx]])
-                  p<- grep(a, dict$Accession, fixed = T) #ignore.case = T, 
+                  p<- grep(a, dict$Accession, fixed = T)  
                   x<- dict$db[p]
                   y<-x[1]
                   set<- c("-", "?", "")
@@ -502,11 +494,7 @@ shinyServer(function(input, output) {
                       shinyjs::showElement ("WebGestaltR_but")
                       
                       ###WebGestaltR
-                      #if(!require(WebGestaltR)) {
-                      #  install.packages('WebGestaltR', dependencies = TRUE)
-                      library(WebGestaltR)
-                      #}
-                      
+                      library(WebGestaltR)                     
                       observeEvent(input$WebGestaltR,{
                         shinyjs::showElement("WebGestaltR_but")
                         shinyjs::disable("WebGestaltR")
@@ -539,11 +527,8 @@ shinyServer(function(input, output) {
                             shinyjs::hideElement("WebGestaltR_but")
                             shinyjs::hideElement("choosing_organism")
                             shinyjs::hideElement("choosing_RefSet")
-                            
-                            #if(!require(zip)) {
-                            #  install.packages('zip', dependencies = TRUE)
-                            library(zip)
-                            #}
+                                                       
+                            library(zip)                            
                             print("Running WebGestaltR")
                             genesymbol <- degs_t$gene_symbol
                             genesymbol <- as.character(genesymbol)
@@ -574,18 +559,18 @@ shinyServer(function(input, output) {
                             zip::zipr(zipfile = "WebGestalt.zip", files = Webgestalt_files, include_directories=TRUE)
                             
                             if (file.exists("WebGestalt.zip")) {print ("zip is ready!!!")}
-                            # the zip file is in working directory, here C:/Users/Anna/Desktop/PhD/DExplore/GSE
+                            # the zip file is in working directory
                             else {print("Problem while zipping")}
                           })
-                          output$down_WebGestalt <- downloadHandler(
+                          output$down_WebGestalt <- downloadHandler( #Rendering and downloading DE genes list
                             filename = function() {paste0("Project_GSE", input$GSE, "_WebGestalt.zip")},
                             content = function(temp) {file.copy(from = paste0(getwd(),"/WebGestalt.zip"), to = temp)} )
-                        }) #submit_Organism
-                      }) #WebGestaltR
-                    } #Rendering and downloading DE genes list
-                  } # if (!is.element(y,set))
+                        }) 
+                      }) 
+                    } 
+                  } 
                   
-                  else { ### sto if(!is.element(y,set))
+                  else { 
                     shinyjs::showElement("no_annotation")
                     ###Rendering and downloading DE genes list WITHOUT ANNOTATION 
                     sign<- no_annotf(sign)
@@ -632,20 +617,20 @@ shinyServer(function(input, output) {
                     shinyjs::enable ("anls")
                     shinyjs::hideElement("wait_msg5")
                     shinyjs::showElement("msg_no_annot")
-                  }  #else { sto if(!is.element(y,set))
+                  }  
                   
                   #Deleting files from working directory
                   unlink(file.path(getwd(),c("*.CEL", "*.tar", "*.gz", "*.txt.gz","*.txt"))) 
                   print("*.CEL, *.tar, *.gz, *.txt.gz and *.txt are gone")
                   print(list.files(path = getwd(), all.files = T, full.names = T, include.dirs = T))
                   
-                } #annotation
-              }) #anls
-            })#tr
-          }) #ctr
-        }) #comp
-      }) #platform
-    } #validation
+                } 
+              }) 
+            })
+          }) 
+        }) 
+      }) 
+    } 
     
     else { #validation(ftp) is FALSE
       output$falseGSE <- renderText({paste("GSE",input$GSE, " is not a valid accesion number. Please, check again.", sep = "")}) 
