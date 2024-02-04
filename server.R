@@ -641,7 +641,7 @@ shinyServer(function(input, output) {
     shinyjs::hideElement ("submit_msg")
     shinyjs::hideElement ("wait_msg")
     
-  }) #go
+  })
   
   
   ###### ***** FOR MANUALLY UPLOADED DATA ***** ######     
@@ -677,7 +677,7 @@ shinyServer(function(input, output) {
       j <- info$col+1
       v <- info$value
       empty_up[i,j]<<- DT::coerceValue(v,empty_up[i,j])
-    }) #df_up_cell_edit
+    }) 
     
     #Saving changes - Creating targets.txt
     observeEvent(input$changes_done,{
@@ -701,7 +701,7 @@ shinyServer(function(input, output) {
                          label = "Select the comparison",
                          choices = (m_comp)
           ) 
-        }) #comparison
+        }) 
         shinyjs::enable("submit_comp")
       }
       else  {
@@ -709,7 +709,7 @@ shinyServer(function(input, output) {
         output$comp <- renderText( c ("Please, fill in the form correctly.",
                                       "Columns 'treatment' and 'replicate' should be filled out!",
                                       "You may use information from GEO's webpage."))
-      } #no comparison
+      } 
       emptyDT<- DT::datatable(empty_up,
                               editable = TRUE,
                               rownames = FALSE,
@@ -724,7 +724,6 @@ shinyServer(function(input, output) {
                                                  fontWeight = 'bold')
       output$df <- DT::renderDataTable(emptyDT)
       empty_up$sample <- fileNames[,1]
-      #write.table(empty_up, file = "targets.txt", row.names = FALSE, quote = FALSE, sep = "\t")
       targets<-data.frame(empty_up)
       
       observeEvent(input$submit_comp, {
@@ -746,10 +745,7 @@ shinyServer(function(input, output) {
           shinyjs::showElement ("wait_msg2")
           shinyjs::hideElement ("firstRun")
           shinyjs::showElement ("wait_msg3")
-          
-          ###Reading targets.txt
-          #targets<- readTargets(file="targets.txt", sep="\t")
-          
+                    
           ###Reading Affy
           Data<- read.celfiles(input$uploadFiles$datapath)
           Data_rma<-rma(Data)
@@ -830,7 +826,7 @@ shinyServer(function(input, output) {
             shinyjs::hideElement ("wait_msg2")
             shinyjs::showElement ("msg")
             shinyjs::showElement ("noDEGs")
-          } #if (nrow(sign)==0){}
+          } 
           
           else { 
             ###Annotation using annotate
@@ -929,12 +925,8 @@ shinyServer(function(input, output) {
                 shinyjs::enable ("anls")
                 shinyjs::hideElement ("wait_msg5")
                 shinyjs::showElement ("WebGestaltR_but")
-                
-                ###WebGestaltR
-                #if(!require(WebGestaltR)) {
-                #    install.packages('WebGestaltR', dependencies = TRUE)
+
                 library(WebGestaltR)
-                #}
                 
                 observeEvent(input$WebGestaltR,{
                   shinyjs::showElement("WebGestaltR_but")
@@ -968,10 +960,9 @@ shinyServer(function(input, output) {
                       shinyjs::hideElement("WebGestaltR_but")
                       shinyjs::hideElement("choosing_organism")
                       shinyjs::hideElement("choosing_RefSet")
-                      #if(!require(zip)) {
-                      #    install.packages('zip', dependencies = TRUE)
+
                       library(zip)
-                      #}
+                      
                       print("Running WebGestaltR")
                       genesymbol <- degs_t$gene_symbol
                       genesymbol <- as.character(genesymbol)
@@ -998,7 +989,7 @@ shinyServer(function(input, output) {
                                                     recursive = TRUE, full.names = TRUE)
                       zip::zipr(zipfile = "WebGestalt.zip", files = Webgestalt_files, include_directories=TRUE)
                       if (file.exists("WebGestalt.zip")) {print ("zip is ready!!!")}
-                      # the zip file is in working directory, here C:/Users/Anna/Desktop/PhD/DExplore/GSE
+                      # the zip file is in working directory
                       else {print("Problem while zipping")}
                     })
                     output$down_WebGestalt <- downloadHandler(
@@ -1008,11 +999,11 @@ shinyServer(function(input, output) {
                       content = function(temp) {
                         file.copy(from = paste0(getwd(),"/WebGestalt.zip"), to = temp)  
                       })
-                  }) #submitOrganism
-                }) #WebGestlatR
-              } #else sto Rendering
-            } #!is.element
-            else { #sto if(!is.element(y,set))
+                  }) 
+                }) 
+              } 
+            } 
+            else { 
               shinyjs::showElement("no_annotation")
               
               ###Rendering and downloading DE genes list WITHOUT ANNOTATION 
@@ -1062,8 +1053,8 @@ shinyServer(function(input, output) {
               shinyjs::enable ("anls")
               shinyjs::hideElement("wait_msg5")
               shinyjs::showElement("msg_no_annot")
-            } #no annotation
-          } #else - annotate
+            } 
+          } 
           
           #Deleting files from working directory
           print(list.files(path = getwd(), all.files = T, full.names = T, include.dirs = T))
@@ -1071,8 +1062,8 @@ shinyServer(function(input, output) {
           print(".CEL, *.tar, *.gz, *.txt.gz and *.txt are gone")
           print(list.files(path = getwd(), all.files = T, full.names = T, include.dirs = T))
           
-        }) #anls
-      }) #submit_comp
-    }) #changes_done
-  }) #up_go
-}) #server
+        }) 
+      }) 
+    }) 
+  }) 
+}) 
