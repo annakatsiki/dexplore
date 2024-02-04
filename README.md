@@ -1,4 +1,4 @@
-# dexplore
+# DExplore
 DExplore: an online tool for detecting differentially expressed genes from mRNA microarray experiments 
  
 DExplore (www.dexplore.gr) is an online and easy-to-use web application for detecting differentially expressed genes using data from NCBI Gene Expression Omnibus (GEO), the international public repository that archives and freely distributes high-throughput functional genomics data submitted by the research community. 
