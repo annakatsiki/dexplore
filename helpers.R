@@ -6,25 +6,25 @@ http <- "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE"
 #Global functions
 createFtp <- function(accession) {
   if (nchar(accession)<=3) {
-    ftp <- "ftp://ftp.ncbi.nih.gov/geo/series/GSEnnn/GSE"
+    ftp <- "ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSEnnn/GSE"
     ftp <- paste(ftp, accession, "/", sep="")
     print(paste0("FTP is ", ftp))
   }
   else if (nchar(accession)==4) {
     nnn <- substr(accession,1,1)
-    ftp <- "ftp://ftp.ncbi.nih.gov/geo/series/GSE"
+    ftp <- "ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE"
     ftp <- paste(ftp, nnn, "nnn/GSE", accession, "/", sep="")
     print(paste0("FTP is ", ftp))
   }
   else if (nchar(accession)==5) {
     nnn <- substr(accession,1,2)
-    ftp <- "ftp://ftp.ncbi.nih.gov/geo/series/GSE"
+    ftp <- "ftp://nlm.nih.gov/geo/series/GSE"
     ftp <- paste(ftp, nnn, "nnn/GSE", accession, "/", sep="")
     print(paste0("FTP is ", ftp))
   }
   else if (nchar(accession)==6) {
     nnn <- substr(accession,1,3)
-    ftp <- "ftp://ftp.ncbi.nih.gov/geo/series/GSE"
+    ftp <- "ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE"
     ftp <- paste(ftp, nnn, "nnn/GSE", accession, "/", sep="")
     print(paste0("FTP is ", ftp))
   }
