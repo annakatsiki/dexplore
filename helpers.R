@@ -18,7 +18,7 @@ createFtp <- function(accession) {
   }
   else if (nchar(accession)==5) {
     nnn <- substr(accession,1,2)
-    ftp <- "ftp://nlm.nih.gov/geo/series/GSE"
+    ftp <- "ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE"
     ftp <- paste(ftp, nnn, "nnn/GSE", accession, "/", sep="")
     print(paste0("FTP is ", ftp))
   }
