@@ -146,7 +146,7 @@ filter2<- function(Matrix, threshold1, threshold2) {
   }
 }
 
-annotf<- function(DataFrame, x) {  ###gia annotation me annotate
+annotf<- function(DataFrame, x) {  ###for annotation using package annotate
   if (require(x, character.only = T)) { 
     sign <- DataFrame
     ID <- row.names(sign)
@@ -156,7 +156,7 @@ annotf<- function(DataFrame, x) {  ###gia annotation me annotate
   }
 }
 
-no_annotf<- function(DataFrame) {  ###gia annotation me annotate
+no_annotf<- function(DataFrame) {  ###for annotation using package annotate
   sign <- DataFrame
   ID <- row.names(sign)
   sign <- cbind("probeID"= row.names(sign), sign)
