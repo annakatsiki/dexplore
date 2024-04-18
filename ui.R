@@ -89,7 +89,7 @@ shinyUI(fluidPage (
                                       hr()
                                   )
                                 ),
-                                bsTooltip("url","Click to redirect to GEO website",placement = "top", trigger = "hover"),
+                                bsTooltip("url","Click to redirect to GEO website",placement = "top", trigger = "hover")
                          ),
                          h4("You can access the source code and/or the docker image using the following links:", style="text-align: left"),
                          h4(uiOutput (outputId= "GitHub"), style="text-align:left"),
@@ -248,94 +248,111 @@ shinyUI(fluidPage (
                                   style = "text-align:center",
                                   h4("The analysis is done. Please, go to the Results tab."),
                                   hr()
+                                  )
                               )
                             )
-                          ))),
-              
-              tabPanel( title = "Results",
-                        br(),
-                        br(),
-                        br(),
-                        br(),
-                        div(id= "firstInput2",
-                            style = "text-align:center",
-                            h4("You should input your data first."),
-                            hr()
-                        ),
-                        shinyjs::hidden(
-                          div(id= "firstRun",
-                              style = "text-align:center",
-                              h4("Complete the Data Description form and then press Run the analysis."),
-                              hr()
                           )
                         ),
-                        shinyjs::hidden(
-                          div(id="wait_msg3",
-                              style = "text-align:center",
-                              h4("Please, wait a few minutes until the analysis is done."), 
-                              hr()
-                          )
-                        ),
-                        shinyjs::hidden(
-                          div(id="noDEGs",
-                              style = "text-align:center",
-                              h3("There are NO differentially expressed genes."), 
-                              hr()
-                          )
-                        ),
-                        shinyjs::hidden(
-                          div(id="no_annotation",
-                              style = "text-align:center",
-                              h3("Annotation file not found"), 
-                              hr()
-                          )
-                        ),
-                        shinyjs::hidden(
-                          div(id="download",
-                              style = "text-align:center; ",
-                              h4("Press the button to download the DE genes list"),
-                              tags$head(tags$style(HTML('#down_csv{background-color:#B39DDB; color:#000000;font-weight:bold; border:0px;}'))),
-                              tags$head(tags$style(HTML('#down_tsv{background-color:#B39DDB; color:#000000;font-weight:bold; border:0px;}'))),
-                              downloadButton( outputId = "down_csv", label = ".csv file"),
-                              downloadButton( outputId = "down_tsv", label = ".tsv file"),                             
-                              tags$head(tags$style(HTML('#table_info{background-color:#B39DDB; color:#000000;font-weight:bold; border:0px;}'))),
-                              bsButton (inputId = "table_info", 
-                                        label = icon(name = "info", class = ".fa-info"),
-                                        style = "info",
-                                        type = "toggle",
-                                        block = FALSE
-                              ),
-                              hr()
-                          )
-                        ),
-                        shinyjs::hidden(
-                          div(id="DEGs",
-                              DT::dataTableOutput( outputId = "DEGs"),
-                              hr()
-                          )
-                        ),
-                        
-                        bsTooltip("down_csv", "Click to download the DE genes list as a comma separated file", 
-                                  placement = "left", trigger = "hover"),
-                        bsTooltip("down_tsv", "Click to download the DE genes list as a tab separated file", 
-                                  placement = "left", trigger = "hover"),                      
-                        bsPopover (id= "table_info",
-                                   title = "<b>Table Info</b>",
-                                   content =c("<p><b>probeID</b>= Affymetrix unique identifier assigned ",
-                                              "to each probe on the array</p> <p><b>gene symbol</b>= the official ",
-                                              "gene symbol name used in Genomics databases</p> <p><b>logFC</b>= ",
-                                              "the value of the contrast; this represents a log2-fold ",
-                                              "change between two experimental conditions, i.e. control ",
-                                              "and treated sample</p> <p><b>AveExpr</b>= the average ",
-                                              "log2-expression level for that gene across all the arrays ",
-                                              "in the experiment</p> <p><b>t</b>= the moderated t-statistic</p> ",
-                                              "<p><b>P.Value</b>= the associated p-value</p>  <p><b>adj.P.Value</b>= ",
-                                              "the p-value adjusted for multiple testing</p>",
-                                              "<p><b>B</b>= log-odds that the gene is differentially expressed</p>"),
-                                   placement = "bottom", 
-                                   trigger = "click")
-                        
-              ),
+              tabPanel(title = "Results",
+                                    br(),
+                                    br(),
+                                    br(),
+                                    br(),
+                                    div(id= "firstInput2",
+                                        style = "text-align:center",
+                                        h4("You should input your data first."),
+                                        hr()
+                                        ),
+                                    shinyjs::hidden(
+                                      div(id= "firstRun",
+                                          style = "text-align:center",
+                                          h4("Complete the Data Description form and then press Run the analysis."),
+                                          hr()
+                                          )
+                                      ),
+                                    shinyjs::hidden(
+                                      div(id="wait_msg3",
+                                          style = "text-align:center",
+                                          h4("Please, wait a few minutes until the analysis is done."), 
+                                          hr()
+                                          )
+                                      ),
+                                    shinyjs::hidden(
+                                      div(id="noDEGs",
+                                          style = "text-align:center",
+                                          h3("There are NO differentially expressed genes."), 
+                                          hr()
+                                          )
+                                      ),
+                                    shinyjs::hidden(
+                                      div(id="no_annotation",
+                                          style = "text-align:center",
+                                          h3("Annotation file not found"), 
+                                          hr()
+                                          )
+                                      ),
+                       shinyjs::hidden(
+                         div(
+                           id = "download",
+                           fluidRow(
+                                    style = "text-align:center;",
+                                    h3("The results can be downloaded as:",
+                                       HTML("<b>visualization plots</b>"),
+                                       " (including histogram of adjusted p value against the number of probes, boxplot, 
+                                       interactive heatmap, interactive volcano plot, and PCA plots, i.e., 
+                                       the scree plot, the grouping of samples against PC1 and PC2, and the biplot),", 
+                                       HTML("the DEGs list as a "),
+                                       HTML("<b>.csv file,</b>"),
+                                       HTML("or the DEGs list as a "),
+                                       HTML("<b>.tsv file</b>"),
+                                       HTML("by pressing the corresponding button.")
+                                       ),
+                                    br(), br(),
+                                    tags$head(tags$style(HTML('#down_plots{background-color:#B39DDB; color:#000000;font-weight:bold; border:0px;}'))),
+                                    downloadButton(outputId = "down_plots", label = "Visualization plots"),
+                                    tags$head(tags$style(HTML('#down_csv{background-color:#B39DDB; color:#000000;font-weight:bold; border:0px;}'))),
+                                    downloadButton(outputId = "down_csv", label = ".csv file"),
+                                    tags$head(tags$style(HTML('#down_tsv{background-color:#B39DDB; color:#000000;font-weight:bold; border:0px;}'))),
+                                    downloadButton(outputId = "down_tsv", label = ".tsv file"),
+                                    tags$head(tags$style(HTML('#table_info{background-color:#B39DDB; color:#000000;font-weight:bold; border:0px;}'))),
+                                    bsButton(inputId = "table_info", 
+                                             label = icon(name = "info", class = ".fa-info"),
+                                             style = "info",
+                                             type = "toggle",
+                                             block = FALSE
+                                             ), 
+                                    hr()
+                                    )
+                             )
+                           ),
+                                    shinyjs::hidden(
+                                      div(id="DEGs",
+                                          DT::dataTableOutput( outputId = "DEGs"),
+                                          hr()
+                                          )
+                                      ),
+                       bsTooltip("down_csv", "Click to download the DE genes list as a comma separated file", 
+                                 placement = "left", trigger = "hover"),
+                       bsTooltip("down_tsv", "Click to download the DE genes list as a tab separated file", 
+                                 placement = "left", trigger = "hover"),
+                       bsTooltip("down_plots", "Click to download the visualization plots as a .zip file", 
+                                 placement = "left", trigger = "hover"),
+                       bsPopover (id= "table_info",
+                                  title = "<b>Table Info</b>",
+                                  content =c("<p><b>probeID</b>= Affymetrix unique identifier assigned ",
+                                             "to each probe on the array</p> <p><b>gene symbol</b>= the official ",
+                                             "gene symbol name used in Genomics databases</p> <p><b>logFC</b>= ",
+                                             "the value of the contrast; this represents a log2-fold ",
+                                             "change between two experimental conditions, i.e. control ",
+                                             "and treated sample</p> <p><b>AveExpr</b>= the average ",
+                                             "log2-expression level for that gene across all the arrays ",
+                                             "in the experiment</p> <p><b>t</b>= the moderated t-statistic</p> ",
+                                             "<p><b>P.Value</b>= the associated p-value</p>  <p><b>adj.P.Value</b>= ",
+                                             "the p-value adjusted for multiple testing</p>",
+                                             "<p><b>B</b>= log-odds that the gene is differentially expressed</p>"),
+                                  placement = "bottom", 
+                                  trigger = "click")
+                       ),
               tabPanel( title= "WebGestalt Over-Representation Analysis",
                         br(),
                         br(),
@@ -426,9 +443,14 @@ shinyUI(fluidPage (
                               style = "text-align:center",
                               uiOutput(outputId= "users_guide_msg"),
                               uiOutput(outputId= "users_guide_view")
+                              #tags$head(tags$style(HTML('#users_guide{background-color:#B39DDB; color:#000000; 
+                              #                           font-weight:bold; border:0px; width:125px; padding:3px 0; text-align:center; margin:auto;}'))),
+                              #downloadButton( outputId="users_guide", label = "User's guide")
+                              #tags$iframe(style="height:400px; width:100%; scrolling=yes",
+                              #             src="c:/Users/Anna/Desktop/PhD/git/DExplore/GSE/Users_guide.pdf")
                         ),
                         hr()
+                        )
               )
   )
-)
 )
