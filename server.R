@@ -11,8 +11,11 @@ library(GEOquery)
 library(limma)
 library(oligo)
 library(annotate)
+library(ggplot2)
 
 source('helpers.R')
+
+#setwd('../GSE')
 
 shinyServer(function(input, output) {
   shinyjs:: useShinyjs()  # Include shinyjs
@@ -22,11 +25,13 @@ shinyServer(function(input, output) {
   print(paste0("working directory is ", getwd()))
   currentDir<- "./"
   ProjectDir<- dir (path = currentDir, pattern ="^Project", full.names = TRUE)
-  unlink(file.path(getwd(),c("*.CEL", "*.gz", "*.txt.gz","*.txt", "*.tar"))) 
-  print("*.CEL, *.tar, *.gz, *.txt.gz and *.txt are gone")
+  #unlink(paste0(ProjectDir,"*"), recursive = TRUE)
+  unlink(file.path(getwd(),c("*.CEL", "*.gz", "*.txt.gz","*.txt","*.jpg", "*.png", "*.html", "*.tar", "*.zip"))) 
+  print("*.CEL, *.tar, *.gz, *.jpg,*.png, *.html, *.txt.gz, *.txt, and *.zip are gone")
   print(list.files(path = getwd(), all.files = T, full.names = T, include.dirs = T))
   wwwDir<- "./www"    
   unlink(file.path(wwwDir,c ("*.html")))
+  unlink(file.path(wwwDir,c ("*.zip")))
   
   #changing the file size limit
   options(shiny.maxRequestSize = 50*2048^2) #25MB per file is allowed
@@ -100,7 +105,7 @@ shinyServer(function(input, output) {
       shinyjs::hideElement ("wait_msg4")
       if (length(gse)>0) {
         choose_platform <- TRUE
-        for (i in 1:length(gse)) { plat_choices <- c(plat_choices, annotation(gse[[i]])) } 
+        for (i in 1:length(gse)) { plat_choices <- c(plat_choices, annotation(gse[[i]])) } #class(plat_choices) >>> character
       }
       plat_df <- as.data.frame(plat_choices)
       for (i in 1:length(plat_choices)) { row.names(plat_df)[i]<- plat_choices[i] }
@@ -224,7 +229,7 @@ shinyServer(function(input, output) {
         rownames(newpdata) <- phenodata$geo_accession
         newpdata <- gsub("^ ", "", newpdata)
         output$df<- renderDataTable(newpdata, server = TRUE)
-        
+
         #Choosing the comparison to be performed
         shinyjs::showElement ("comparison")
         output$compBut <- renderUI ({ 
@@ -292,7 +297,7 @@ shinyServer(function(input, output) {
                 shinyjs::showElement ("wait_msg2")
                 shinyjs::hideElement ("firstRun")
                 shinyjs::showElement ("wait_msg3")
-                
+
                 ### downloading and untarring RAW files
                 getGEOSuppFiles(gse_names, makeDirectory = FALSE)
                 tar_file <- paste0(gse_names,"_RAW.tar")
@@ -304,13 +309,17 @@ shinyServer(function(input, output) {
                   gunzip(cF[i,], remove = FALSE, overwrite = T)
                   print(i)
                   i = i+1
-                }              
+                }
+                
+                ###Reading targets.txt
                 print(targets)
                 
                 ###Reading Affy
                 lc<- list.celfiles(path = getwd(), full.names = TRUE)
                 celFiles<- c()
-                for (i in 1:length(phenodata$geo_accession)) {celFiles<- c(celFiles, grep(phenodata$geo_accession[i], lc, value = T))}
+                for (i in 1:length(phenodata$geo_accession)) {
+                  celFiles<- c(celFiles, grep(phenodata$geo_accession[i], lc, value = T))
+                  }
                 Data<- read.celfiles(celFiles)
                 print("Data is ready")
                 Data_rma<-rma(Data)
@@ -320,6 +329,7 @@ shinyServer(function(input, output) {
                 print(dim(e))
                 
                 ###NonSpecific Filtering-pOverA
+
                 num_ctr <- length(which(newpdata[,index] %in% input$ctr)) ###number of control samples
                 num_tr <- length(which(newpdata[,index] %in% input$tr)) ###number of treated samples
                 prop<- (num_tr/(num_tr+num_ctr))
@@ -334,33 +344,33 @@ shinyServer(function(input, output) {
                 ###NonSpecific Filtering-shorth
                 row.mean <- esApply(Data_rma,1,mean) 
                 sh <- shorth(row.mean)
-                hist(e)
-                abline(v=sh, col="red")
+                #hist(e)
+                #abline(v=sh, col="red")
                 f3_Data_rma <- Data_rma[row.mean >=sh,]
                 dim(f3_Data_rma)
-                
+  
                 ###Filtering Results - Comparison
                 v<- c(dim(Data_rma)[1], dim(f2_Data_rma)[1], dim(f3_Data_rma)[1])
                 filt.matrix<- data.frame(features=v, filt.method = c("before filt", "pOverA", "shorth"))  
                 print(filt.matrix)
                 
-                ###Quality Assessment- Checking for Batch Effect
-                plotMDS(e, labels = targets$treatment, col=as.numeric(as.factor(targets$replicate)))
-                plotMDS(f2_e, labels = targets$treatment, col=as.numeric(as.factor(targets$replicate)))
-                
                 ###Linear Modelling
                 cond<-pdataRel[,index]
                 batch<-as.factor(targets$replicate)
                 design<-model.matrix(~0 + cond + batch)
-                x_index <- grep(input$ctr, colnames(design), ignore.case = T) 
-                y_index <- grep(input$tr, colnames(design), ignore.case = T) 
+                print("the design matrix before:")
+                print (design)
+                x_index <- grep(input$ctr, colnames(design), ignore.case = T) ###
+                y_index <- grep(input$tr, colnames(design), ignore.case = T) ###
                 colnames(design)<-gsub("cond","",colnames(design))
                 colnames(design)<-gsub("atch","",colnames(design))
                 colnames(design)<- make.names(colnames(design))
+                print("the design matrix after:")
+                print (design)
                 fit<- lmFit(f2_e, design)
                 print(head(fit$coefficients))
-                x<- colnames(design)[x_index] 
-                y<- colnames(design)[y_index] 
+                x<- colnames(design)[x_index] ###
+                y<- colnames(design)[y_index] ###
                 s<- paste0(x,y,"=",y,"-",x)
                 contr<- do.call(makeContrasts, c(s,list(levels = design)))
                 fit2<-contrasts.fit(fit, contr)
@@ -368,22 +378,88 @@ shinyServer(function(input, output) {
                 top<-topTable(fit3, number = nrow(fit3), adjust.method = input$adjMet, sort="none")
                 head(top)
                 dim(top)
-                
+
                 ###Significant DE genes
                 print(input$adjMet)
                 print(input$adjPval)
                 print(input$logFC)
                 res<-decideTests(fit3,method = "separate", adjust.method = input$adjMet, p.value = input$adjPval, lfc = input$logFC)
-                vennDiagram(res, include = "up", show.include = T)
-                vennDiagram(res, include = "down", show.include = T)
-                vennDiagram(res, include = "both", show.include = T)
                 
+                # PLOTS
+                
+                # Histogram
+
+                  png("histogram.png")
+                  par(font.lab=2, font.axis=2)
+                  hist(top$adj.P.Val, col = "darkgrey", border = "white", 
+                       breaks = 100, 
+                       xlab = "P-adj", ylab = "Number of probes", 
+                       main = paste0("GSE", input$GSE, " adjusted P-value distribution"),
+                       xaxt= "n"
+                  )
+                  axis(side = 1, at = seq(0, 1, length.out = 5), 
+                       labels = seq(0, 1, length.out = 5), tck= 0)
+                  dev.off()
+
+                  # Boxplot
+                  
+                  png("boxplot.png")
+                  ctr_index<-which(newpdata[,index] %in% input$ctr)
+                  tr_index<-which(newpdata[,index] %in% input$tr)
+                  groups<- c("Control", "Treated")
+                  test_f2_e<-f2_e
+                  sample_tags <- rep("Unknown", ncol(test_f2_e))
+                  for (i in ctr_index) {
+                    sample_tags[i] <- "Control"
+                    }
+                  for (i in tr_index) {
+                    sample_tags[i] <- "Treated"
+                    }
+                  others <- setdiff(colnames(test_f2_e), c("Control", "Treated"))
+                  colnames(test_f2_e)<-sample_tags
+                  unknown_v<-(which(colnames(test_f2_e)=="Unknown"))
+                  cols<-ifelse(colnames(test_f2_e)=="Control", "lightgreen", 
+                               ifelse(colnames(test_f2_e)=="Treated", "red", "lightgrey"))
+                  xlabels<-rownames(targets)
+                  par(mar=c(5.1, 4.1, 4.1, 8.1), xpd=TRUE, bty="l", font.lab=2, font.axis=2)
+                  boxplot(f2_e, ylab="Expression Value", xaxt="n", 
+                                col=cols,
+                                main = paste0("Boxplot of GSE", input$GSE, axes=0)
+                                )
+                  text(x = 1:length(xlabels), y = par("usr")[3] - 0.5, 
+                       labels = xlabels, srt=45, font=2,
+                       adj = c(1, 1), xpd = TRUE, cex = 1)
+                  if (length(unknown_v)>0){
+                    leg <- legend("topright", pch = 19, col = c("lightgreen", "red", "lightgray"),
+                                  legend = c(input$ctr, input$tr, "other"),
+                                  fill = c("lightgreen", "red", "lightgray"),
+                                  plot = FALSE)
+                    
+                    legend(x = (leg$rect$left + leg$rect$w) * 0.95, y = leg$rect$top,
+                           pch = 19, col = c("lightgreen", "red", "lightgray"),
+                           legend = c(input$ctr, input$tr, "other"),
+                           bg= "transparent", border = NA, 
+                           horiz = FALSE, box.lwd = 0, box.col = "white")
+                         } else{
+                           leg <- legend("topright", pch = 19, col = c("lightgreen", "red"),
+                                         legend = c(input$ctr, input$tr),
+                                         fill = c("lightgreen", "red"),
+                                         plot = FALSE)
+                           
+                           legend(x = (leg$rect$left + leg$rect$w) * 0.95, y = leg$rect$top,
+                                  pch = 19, col = c("lightgreen", "red"),
+                                  legend = c(input$ctr, input$tr),
+                                  bg= "transparent", border = NA, 
+                                  horiz = FALSE, box.lwd = 0, box.col = "white")
+                         }
+                  dev.off()
+
                 ###Keeping DE genes to a data.frame
-                sign<-top[which(abs(top$logFC) > input$logFC & top$adj.P.Val < input$adjPval),]
-                dim(sign)
-                print(paste0("Before annotation: nrow(sign) is ", nrow(sign))) 
-                print("head of sign is: ")
-                print(head(sign))
+                  sign<-subset(top, abs(top$logFC)> input$logFC & top$adj.P.Val < input$adjPval)
+                  dim(sign)
+                  print(paste0("Before annotation: nrow(sign) is ", nrow(sign))) 
+                  print("head of sign is: ")
+                  print(head(sign))
                 
                 ###Message for zero DE genes
                 if (nrow(sign)==0){
@@ -401,7 +477,7 @@ shinyServer(function(input, output) {
                   gse_acc <- paste0("GSE", input$GSE)
                   gse<- getGEO(gse_acc, destdir = getwd(), GSEMatrix = T, getGPL = F)
                   a <- annotation(gse[[idx]])
-                  p<- grep(a, dict$Accession, fixed = T)  
+                  p<- grep(a, dict$Accession, fixed = T) #ignore.case = T, 
                   x<- dict$db[p]
                   y<-x[1]
                   set<- c("-", "?", "")
@@ -414,6 +490,324 @@ shinyServer(function(input, output) {
                     }
                     
                     sign<- annotf(sign, y)
+                    top<- annotf(top,y)
+                    
+                    # PCA
+                    
+                    tr_f2_e <- t(f2_e)
+                    
+                    # Create a vector indicating the treatment group for each sample
+                    sample_groups <- newpdata[, index, drop = FALSE]
+                    # Use the ctr_index and tr_index to subset the columns of tr_f2_e
+                    ctr_index<-which(newpdata[,index] %in% input$ctr)
+                    tr_index<-which(newpdata[,index] %in% input$tr)
+                    ctr_samples <- tr_f2_e[ctr_index, ]
+                    trt_samples <- tr_f2_e[tr_index, ]
+                    # Combine the control and treatment samples
+                    selected_samples <- rbind(ctr_samples, trt_samples)
+                    # Subset the sample groups vector accordingly
+                    selected_sample_groups <- c(sample_groups[ctr_index], sample_groups[tr_index])
+                    # Perform PCA
+                    pca_result <- prcomp(selected_samples)
+                    #print(summary(pca_result))
+                    
+                    ### Scree plot
+                    #Calculate variance explained as percentage and cumulative variance
+                    variance_explained_percent <- pca_result$sdev^2 / sum(pca_result$sdev^2) * 100
+                    cumulative_variance <- cumsum(pca_result$sdev^2) / sum(pca_result$sdev^2)
+                    
+                    # Create data frame for scree plot
+                    scree_data <- data.frame(
+                      PC = 1:length(pca_result$sdev),
+                      Variance_Explained = variance_explained_percent,
+                      Cumulative_Variance = cumulative_variance
+                    )
+                    
+                    # Plot scree plot
+                    scree_plot <- ggplot(scree_data, aes(x = PC)) +
+                      geom_line(aes(y = Variance_Explained, color = "Variance Explained")) +
+                      geom_line(aes(y = Cumulative_Variance, color = "Cumulative Variance Explained")) +
+                      scale_color_manual(values = c("black", "red")) +
+                      labs(title = paste0("Scree Plot - GSE", input$GSE), x = "Principal Component", y = "Variance Explained (%)") +
+                      theme_minimal() +  ### change for uploaded data
+                      theme(
+                        plot.background = element_rect(fill = "white", color = NA),  # Set entire plot background to white
+                        panel.grid.major = element_blank(),  # Remove major grid lines
+                        panel.grid.minor = element_blank(),  # Remove minor grid lines
+                        panel.border = element_blank(),  # Remove border
+                        axis.line = element_line(color = "black"),  # Add axis lines with black color
+                        axis.text = element_text(color = "black"),  # Set axis text color to black
+                        axis.title = element_text(color = "black"),  # Set axis title color to black
+                        plot.title = element_text(color = "black"),  # Set plot title color to black
+                        plot.margin = margin(1, 1, 1, 1, "cm")  # Set plot margins
+                      ) +
+                      theme(
+                        plot.title = element_text(face = "bold", hjust = 0.5),  
+                        axis.title = element_text(face = "bold"),  # Bold axis labels
+                        axis.title.x = element_text(hjust = 0.5),  # Centered x-axis label
+                        axis.title.y = element_text(hjust = 0.5)   # Centered y-axis label
+                      )
+                    # Save scree plot
+                    ggsave("scree_plot.png", plot = scree_plot, width = 8, height = 6, units = "in", dpi = 300)
+                    
+                    ### PCA_scores_plot
+                    # Extract the scores (PC1 and PC2) and combine with sample names 
+                    pc_df <- data.frame(
+                      PC1 = pca_result$x[,1],
+                      PC2 = pca_result$x[,2],
+                      PC3 = pca_result$x[,3], 
+                      Sample_Group = ifelse(seq_along(rownames(pca_result$x)) %in% ctr_index, "Control", "Treated")
+                      )
+                    # Plot PCA scores with sample groups
+                    pca_scores_plot <- ggplot(pc_df, aes(x = PC1, y = PC2, color = Sample_Group)) +
+                      geom_point() +
+                      labs(title = paste0("PCA Plot with Sample Groups - GSE", input$GSE), x = "PC1", y = "PC2") +  ### change for uploaded data
+                      scale_color_manual(values = c("Control" = "blue", "Treated" = "red")) + ### group names
+                      theme_minimal() +
+                      theme(
+                        plot.background = element_rect(fill = "white", color = NA),  # Set entire plot background to white
+                        panel.grid.major = element_blank(),  # Remove major grid lines
+                        panel.grid.minor = element_blank(),  # Remove minor grid lines
+                        panel.border = element_blank(),  # Remove border
+                        axis.line = element_line(color = "black"),  # Add axis lines with black color
+                        axis.text = element_text(color = "black"),  # Set axis text color to black
+                        axis.title = element_text(color = "black"),  # Set axis title color to black
+                        plot.title = element_text(color = "black"),  # Set plot title color to black
+                        plot.margin = margin(1, 1, 1, 1, "cm")  # Set plot margins
+                      ) +
+                      theme(
+                        plot.title = element_text(face = "bold", hjust = 0.5),  
+                        axis.title = element_text(face = "bold"),  # Bold axis labels
+                        axis.title.x = element_text(hjust = 0.5),  # Centered x-axis label
+                        axis.title.y = element_text(hjust = 0.5)   # Centered y-axis label
+                        )
+                    # Save PCA scores plot
+                    ggsave("pca_scores_plot.png", plot = pca_scores_plot + 
+                             theme(panel.background = element_rect(fill = "white")), 
+                           width = 8, height = 6, units = "in", dpi = 300)
+
+                    ### Biplot
+                    # Extract PCA scores and loadings
+                    pc_scores <- as.data.frame(pca_result$x)
+                    pc_loadings <- as.data.frame(pca_result$rotation)
+                    annotated_pc_loadings <- annotf(pc_loadings, y)
+                    # Filter out NAs
+                    pc_loadings_no_na <- no_annotf(annotated_pc_loadings)
+                    # Filter out duplicates
+                    pc_loadings_filtered <- unFilt(annotated_pc_loadings$gene_symbol, pc_loadings_no_na)
+                    # Choose top genes contributing to PC1 and PC2
+                    top_genes <- 10  # Number of top genes to select
+                    top_genes_pc1 <- order(abs(pc_loadings_filtered$PC1), decreasing = TRUE)[1:top_genes]
+                    top_genes_pc2 <- order(abs(pc_loadings_filtered$PC2), decreasing = TRUE)[1:top_genes]
+                    
+                    Sample_Group = ifelse(seq_along(rownames(pca_result$x)) %in% ctr_index, "Control", "Treated")
+                    
+                    # Extract gene symbols
+                    top_genes_symbols_pc1 <- pc_loadings_filtered$gene_symbol[top_genes_pc1]
+                    top_genes_symbols_pc2 <- pc_loadings_filtered$gene_symbol[top_genes_pc2]
+                    # Calculate the percentage of variance explained for PC1 and PC2
+                    variance_explained <- round(pca_result$sdev^2 / sum(pca_result$sdev^2) * 100, 2)
+                    # Plot PCA loadings with biplot
+                    biplot <- ggplot() +
+                      labs(title = paste0("Biplot: PCA Loadings - GSE", input$GSE), ### change for uploaded data
+                           x = paste0("PC1 (", round(variance_explained[1], 2), "%)"),
+                           y = paste0("PC2 (", round(variance_explained[2], 2), "%)")) +  
+                           theme_minimal() +
+                      theme(
+                        plot.background = element_rect(fill = "white", color = NA),  # Set entire plot background to white
+                        panel.grid.major = element_blank(),  # Remove major grid lines
+                        panel.grid.minor = element_blank(),  # Remove minor grid lines
+                        panel.border = element_blank(),  # Remove border
+                        axis.line = element_line(color = "black"),  # Add axis lines with black color
+                        axis.text = element_text(color = "black"),  # Set axis text color to black
+                        axis.title = element_text(color = "black"),  # Set axis title color to black
+                        plot.title = element_text(color = "black"),  # Set plot title color to black
+                        plot.margin = margin(0.1, 0.1, 0.1, 0.1, "cm")  # Set plot margins
+                      ) +
+                      scale_x_continuous(expand = expansion(mult = c(0.1, 0.1))) +  
+                      scale_y_continuous(expand = expansion(mult = c(0.1, 0.1))) +
+                      theme(panel.border = element_rect(color = "black", fill = NA, linewidth = 1),
+                            plot.margin = margin(0.1, 0.1, 0.1, 0.1, "cm")) +
+                      coord_fixed(ratio = 1)
+                    # Add arrows for top genes contributing to PC1
+                    biplot <- biplot +
+                      geom_segment(
+                        data = data.frame(
+                          x = 0, y = 0,
+                          xend = pc_loadings_filtered[top_genes_pc1, "PC1"],
+                          yend = pc_loadings_filtered[top_genes_pc1, "PC2"],
+                          gene_symbol = top_genes_symbols_pc1
+                          ),
+                        aes(x = 0, y = 0, xend = xend, yend = yend),
+                        arrow = arrow(length = unit(0.3, "cm")),
+                        color = "darkgreen"
+                        ) +
+                      geom_text(
+                        data = data.frame(
+                          x = pc_loadings_filtered[top_genes_pc1, "PC1"],
+                          y = pc_loadings_filtered[top_genes_pc1, "PC2"],
+                          gene_symbol = top_genes_symbols_pc1
+                          ),
+                        aes(x = x, y = y, label = gene_symbol),
+                        vjust = 1.5,
+                        hjust = -0.5,
+                        color = "darkgreen",
+                        size = 2
+                        )
+                    # Add arrows for top genes contributing to PC2
+                    biplot <- biplot +
+                      geom_segment(
+                        data = data.frame(
+                          x = 0, y = 0,
+                          xend = pc_loadings_filtered[top_genes_pc2, "PC1"],
+                          yend = pc_loadings_filtered[top_genes_pc2, "PC2"],
+                          gene_symbol = top_genes_symbols_pc2
+                          ),
+                        aes(x = 0, y = 0, xend = xend, yend = yend),
+                        arrow = arrow(length = unit(0.3, "cm")),
+                        color = "darkorange"
+                        ) +
+                      geom_text(
+                        data = data.frame(
+                          x = pc_loadings_filtered[top_genes_pc2, "PC1"],
+                          y = pc_loadings_filtered[top_genes_pc2, "PC2"],
+                          gene_symbol = top_genes_symbols_pc2
+                          ),
+                        aes(x = x, y = y, label = gene_symbol),
+                        vjust = 1.5,
+                        hjust = -0.5,
+                        color = "darkorange",
+                        size  = 2
+                        )
+                    # Customize axis labels to be bold and centered
+                    biplot <- biplot +
+                      theme(axis.title.x = element_text(face = "bold", hjust = 0.5),
+                      axis.title.y = element_text(face = "bold", hjust = 0.5),
+                      plot.title = element_text(face = "bold", hjust = 0.5))  
+                    # Save biplot
+                    ggsave("biplot.png", plot = biplot + 
+                             theme(panel.background = element_rect(fill = "white")), 
+                           width = 15, height = 8, units = "in", dpi = 300)
+
+                    #Volcano plot
+                    
+                    library(plotly)
+                    
+                    # Plot each dataset with its corresponding color
+                    # Create separate datasets for each category
+                    upregulated <- top[top$logFC > input$logFC & top$adj.P.Val < input$adjPval, ]
+                    downregulated <- top[top$logFC < -input$logFC & top$adj.P.Val < input$adjPval, ]
+                    not_significant <- top[!(top$logFC > input$logFC & top$adj.P.Val < input$adjPval) & !(top$logFC < -input$logFC & top$adj.P.Val < input$adjPval), ]
+                    max_y <- max(-log10(c(upregulated$adj.P.Val, downregulated$adj.P.Val, not_significant$adj.P.Val)))
+                    
+                    # Create custom hover text including gene symbol, log2FC, and adjusted p-value
+                    up_text <- paste("Gene Symbol: ", upregulated$gene_symbol, "<br>",
+                                     "log2FC: ", format(round(upregulated$logFC, 2), nsmall = 2), "<br>",
+                                     "Adjusted P-value: ", format(round(upregulated$adj.P.Val, 3), nsmall = 3))
+                    
+                    down_text <- paste("Gene Symbol: ", downregulated$gene_symbol, "<br>",
+                                       "log2FC: ", format(round(downregulated$logFC, 2), nsmall = 2), "<br>",
+                                       "Adjusted P-value: ", format(round(downregulated$adj.P.Val, 3), nsmall = 3))
+                    
+                    not_significant_text <- paste("Gene Symbol: ", not_significant$gene_symbol, "<br>",
+                                                  "log2FC: ", format(round(not_significant$logFC, 2), nsmall = 2), "<br>",
+                                                  "Adjusted P-value: ", format(round(not_significant$adj.P.Val, 3), nsmall = 3))
+                    
+                    # Create the plot with custom hover text
+
+                   plot <- plot_ly() %>%
+                      add_trace(data = upregulated, x = ~logFC, y = ~-log10(adj.P.Val), type = 'scatter', mode = 'markers',
+                                marker = list(size = 4, color = 'red'), name = 'Upregulated', text = up_text, hoverinfo = "text") %>%
+                      add_trace(data = downregulated, x = ~logFC, y = ~-log10(adj.P.Val), type = 'scatter', mode = 'markers',
+                                marker = list(size = 4, color = 'blue'), name = 'Downregulated', text = down_text, hoverinfo = "text") %>%
+                      add_trace(data = not_significant, x = ~logFC, y = ~-log10(adj.P.Val), type = 'scatter', mode = 'markers',
+                                marker = list(size = 2, color = 'black'), name = 'Not significant', text = not_significant_text, hoverinfo = "text") %>%
+                      layout(
+                        title = list(text = paste0("Interactive Volcano Plot", input$GSE), y = 0.97),  
+                        xaxis = list(title = "log2 Fold Change", showgrid = FALSE, zeroline = FALSE), 
+                        yaxis = list(title = "-log10(Adjusted P-value)", showgrid = FALSE, linecolor= "black"), 
+                        hovermode = "closest",
+                        legend = list(
+                          orientation = "v",
+                          x = 0.9,
+                          y = 0.2,
+                          xanchor = "left",
+                          yanchor = "top",
+                          bgcolor = "rgba(0,0,0,0)",
+                          bordercolor = "rgba(0,0,0,0)",  
+                          borderwidth = 2
+                        ),
+                        margin = list(l = 50, r = 50, b = 50, t = 50),  
+                        font = list(family = "Arial", size = 14, color = "black", weight = "bold"),
+                        showlegend = TRUE,
+                        yaxis2 = list(range = c(0, max_y + 1)), 
+                        print("volcano is ready")
+                      )
+                    
+                    htmlwidgets::saveWidget(plot, file = "volcanoplot.html")
+                    
+                    
+                    # Heatmap
+                   
+                    library(RColorBrewer)
+                    library(heatmaply)
+                    
+                    sel.top <- subset(top, top$adj.P.Val< input$adjPval & abs(top$logFC)> input$logFC)
+                    #sel.top<- top[which(abs(top$logFC)> input$logFC & top$adj.P.Val < input$adjPval),]
+                    
+                    
+                    sel.top<- annotf(sel.top, y)
+                    sel.top<- unFilt(sel.top$gene_symbol, sel.top)
+                    sel.top<- sel.top[is.na(sel.top$gene_symbol)==FALSE,]
+                    sel.top<- sel.top[order(sel.top$logFC, decreasing = TRUE),]
+                    f2_e.sel<- f2_e[rownames(sel.top), ]
+                    
+                    keys<-sel.top$probeID
+                    values<-sel.top$gene_symbol
+                    l<- list()
+                    for(i in 1:length(keys)){
+                      l[keys[i]]<- values[i]
+                      }
+                    rownames(f2_e.sel)<- unlist(l[rownames(f2_e.sel)], use.names = F)
+                    yellowblackblue <- colorRampPalette(c("dodgerblue", "black", "gold"))(n = 100)
+                    data<- matrix(data = f2_e.sel, nrow = nrow(f2_e.sel))
+                    hover_text <- matrix(paste("AveExpr:", round(data, 4)), 
+                                         nrow = nrow(data), ncol = ncol(data))
+                    
+                    #subsetting the expression value matrix to view only the ctr and treated samples
+                    selcol<- c (which(newpdata[, index] %in% input$ctr),which(newpdata[, index] %in% input$tr))
+                    heatdata <- f2_e.sel[,selcol] 
+                    
+                    heat<- heatmaply(heatdata, distfun = "pearson", hclust_method = NA, 
+                              colors = yellowblackblue, row_dend_left = T,
+                              margins = c(50,50,70,0),
+                              main = paste0("GSE",input$GSE), scale = "row", Colv = F,
+                              label_names = c("Gene", "Sample", "Value"),
+                              custom_hovertext = hover_text,
+                              file = "./heatmap.html")
+                    #browseURL("./heatmap.html")
+
+                    files_to_zip<- c("volcanoplot.html",
+                                     "boxplot.png",
+                                     "histogram.png",
+                                     "scree_plot.png",
+                                     "pca_scores_plot.png",
+                                     "biplot.png",
+                                     "heatmap.html"
+                                     )
+                    zip_filename<- paste0("GSE", input$GSE,"_plots.zip")
+                    zip(zip_filename, files_to_zip)
+                    
+                    output$down_plots <- downloadHandler(
+                      filename = function() {
+                        zip_filename
+                      },
+                      content = function(file) {
+                        path_to_zip <- zip_filename
+                        file.copy(path_to_zip, file)
+                      }
+                    )
+                    
                     print(paste0("nrow(sign) after annotf is ",nrow(sign)))
                     
                     ###Filtering for NA geneNames
@@ -422,6 +816,7 @@ shinyServer(function(input, output) {
                     
                     ###Filtering for unique geneNames
                     sign_un<- unFilt(sign$gene_symbol, sign)
+                    
                     print(paste0("DEGs table after unFilt:",nrow(sign_un)))
                     
                     if (nrow(sign_un)==0){
@@ -461,7 +856,7 @@ shinyServer(function(input, output) {
                                                )
                       )%>% formatSignif(c('logFC','AveExpr','t','P.Value','adj.P.Val','B'),3)
                       
-                      gene_link <- paste0("<a href='", paste0("s://www.ncbi.nlm.nih.gov/gene?term=", degs$gene_symbol,
+                      gene_link <- paste0("<a href='", paste0("https://www.ncbi.nlm.nih.gov/gene?term=", degs$gene_symbol,
                                                               "[Gene Name] AND ", as.character(unique(phenodata$organism_ch1)), 
                                                               "[Organism]"),
                                           "' target='_blank'>", degs$gene_symbol,"</a>")
@@ -475,12 +870,7 @@ shinyServer(function(input, output) {
                       output$down_tsv <- downloadHandler(
                         filename = function (){ paste0("GSE",input$GSE,"_DE_genes.tsv")},
                         content = function (temp) { write.table(degs, temp, quote = FALSE, sep = "\t",row.names = FALSE) })
-                      output$down_pdf <- downloadHandler( 
-                        filename = function (){ paste0("GSE",input$GSE,"_DE_genes.pdf")},
-                        content = function ( temp ) {
-                          createPdf(degs)
-                          file.copy ("test.pdf", temp)},
-                        contentType = "application/pdf")
+
                       
                       shinyjs::hideElement ("wait_msg2")
                       shinyjs::showElement ("msg")
@@ -492,9 +882,10 @@ shinyServer(function(input, output) {
                       shinyjs::enable ("anls")
                       shinyjs::hideElement ("wait_msg5")
                       shinyjs::showElement ("WebGestaltR_but")
+
+                      library(WebGestaltR)
+
                       
-                      ###WebGestaltR
-                      library(WebGestaltR)                     
                       observeEvent(input$WebGestaltR,{
                         shinyjs::showElement("WebGestaltR_but")
                         shinyjs::disable("WebGestaltR")
@@ -527,8 +918,9 @@ shinyServer(function(input, output) {
                             shinyjs::hideElement("WebGestaltR_but")
                             shinyjs::hideElement("choosing_organism")
                             shinyjs::hideElement("choosing_RefSet")
-                                                       
-                            library(zip)                            
+                            
+                            library(zip)
+                            #}
                             print("Running WebGestaltR")
                             genesymbol <- degs_t$gene_symbol
                             genesymbol <- as.character(genesymbol)
@@ -559,18 +951,18 @@ shinyServer(function(input, output) {
                             zip::zipr(zipfile = "WebGestalt.zip", files = Webgestalt_files, include_directories=TRUE)
                             
                             if (file.exists("WebGestalt.zip")) {print ("zip is ready!!!")}
-                            # the zip file is in working directory
+                            # the zip file is in working directory, here C:/Users/Anna/Desktop/PhD/DExplore/GSE
                             else {print("Problem while zipping")}
                           })
-                          output$down_WebGestalt <- downloadHandler( #Rendering and downloading DE genes list
+                          output$down_WebGestalt <- downloadHandler(
                             filename = function() {paste0("Project_GSE", input$GSE, "_WebGestalt.zip")},
                             content = function(temp) {file.copy(from = paste0(getwd(),"/WebGestalt.zip"), to = temp)} )
-                        }) 
-                      }) 
-                    } 
-                  } 
+                        }) #submit_Organism
+                      }) #WebGestaltR
+                    } #Rendering and downloading DE genes list
+                  } # if (!is.element(y,set))
                   
-                  else { 
+                  else { ### sto if(!is.element(y,set))
                     shinyjs::showElement("no_annotation")
                     ###Rendering and downloading DE genes list WITHOUT ANNOTATION 
                     sign<- no_annotf(sign)
@@ -617,20 +1009,20 @@ shinyServer(function(input, output) {
                     shinyjs::enable ("anls")
                     shinyjs::hideElement("wait_msg5")
                     shinyjs::showElement("msg_no_annot")
-                  }  
+                  }  #else { sto if(!is.element(y,set))
                   
                   #Deleting files from working directory
                   unlink(file.path(getwd(),c("*.CEL", "*.tar", "*.gz", "*.txt.gz","*.txt"))) 
                   print("*.CEL, *.tar, *.gz, *.txt.gz and *.txt are gone")
                   print(list.files(path = getwd(), all.files = T, full.names = T, include.dirs = T))
                   
-                } 
-              }) 
-            })
-          }) 
-        }) 
-      }) 
-    } 
+                } #annotation
+              }) #anls
+            })#tr
+          }) #ctr
+        }) #comp
+      }) #platform
+    } #validation
     
     else { #validation(ftp) is FALSE
       output$falseGSE <- renderText({paste("GSE",input$GSE, " is not a valid accesion number. Please, check again.", sep = "")}) 
@@ -641,7 +1033,7 @@ shinyServer(function(input, output) {
     shinyjs::hideElement ("submit_msg")
     shinyjs::hideElement ("wait_msg")
     
-  })
+  }) #go
   
   
   ###### ***** FOR MANUALLY UPLOADED DATA ***** ######     
@@ -652,9 +1044,9 @@ shinyServer(function(input, output) {
     print("uploaded_submit")
     
     shinyjs::hideElement ("firstInput1")
-    shinyjs::hideElement ("firstInput2") 
+    shinyjs::hideElement ("firstInput2")
     shinyjs::showElement ("firstRun")
-    
+
     shinyjs::disable ("GSE")
     shinyjs::disable ("go")
     shinyjs::disable ("go_up")
@@ -677,7 +1069,7 @@ shinyServer(function(input, output) {
       j <- info$col+1
       v <- info$value
       empty_up[i,j]<<- DT::coerceValue(v,empty_up[i,j])
-    }) 
+    }) #df_up_cell_edit
     
     #Saving changes - Creating targets.txt
     observeEvent(input$changes_done,{
@@ -685,14 +1077,16 @@ shinyServer(function(input, output) {
       print("changes_done")
       
       ###comparisons
-      if(length(unique(empty_up$treatment))>1)     { a<- empty_up$treatment }      else { a <-NULL }
-      if(length(unique(empty_up$duration))>1)      { b<- empty_up$duration }       else { b <-NULL }
-      if(length(unique(empty_up$concentration))>1) { c<- empty_up$concentration }  else { c <-NULL }
+      if(length(unique(empty_up$treatment))>1)     { a<- empty_up$treatment }      else { a <-"" }
+      if(length(unique(empty_up$duration))>1)      { b<- empty_up$duration }       else { b <-"" }
+      if(length(unique(empty_up$concentration))>1) { c<- empty_up$concentration }  else { c <-"" }
       abc <- paste(a, b, c, sep = "-")
       if ( (length(unique(abc))>=2) & (length(unique(empty_up$replicate))>=2) ){
         df_comp <- create_df_comp(unique(abc))
+        print(paste0("df_comp is ", class(df_comp)))
         print(df_comp)
         m_comp <- create_m_comp(df_comp)
+        print(paste0("m_comp is ", class(m_comp)))
         print(m_comp)
         shinyjs::hideElement ("no_comparison")
         shinyjs::showElement ("comparison")
@@ -700,8 +1094,9 @@ shinyServer(function(input, output) {
           radioButtons ( inputId = "comp2",
                          label = "Select the comparison",
                          choices = (m_comp)
-          ) 
-        }) 
+                         ) 
+          
+        }) #comparison
         shinyjs::enable("submit_comp")
       }
       else  {
@@ -709,7 +1104,7 @@ shinyServer(function(input, output) {
         output$comp <- renderText( c ("Please, fill in the form correctly.",
                                       "Columns 'treatment' and 'replicate' should be filled out!",
                                       "You may use information from GEO's webpage."))
-      } 
+      } #no comparison
       emptyDT<- DT::datatable(empty_up,
                               editable = TRUE,
                               rownames = FALSE,
@@ -725,12 +1120,14 @@ shinyServer(function(input, output) {
       output$df <- DT::renderDataTable(emptyDT)
       empty_up$sample <- fileNames[,1]
       targets<-data.frame(empty_up)
-      
+
       observeEvent(input$submit_comp, {
         print("comp_submitted")
+        print("input$comp2")
         print(input$comp2)
         print(class(input$comp2))
         index <- which(m_comp==input$comp2)
+        print(paste("index:", class(index), index, sep=" "))
         shinyjs::disable("submit_comp")
         shinyjs::showElement ("btns")
         shinyjs::showElement("run")
@@ -745,7 +1142,7 @@ shinyServer(function(input, output) {
           shinyjs::showElement ("wait_msg2")
           shinyjs::hideElement ("firstRun")
           shinyjs::showElement ("wait_msg3")
-                    
+
           ###Reading Affy
           Data<- read.celfiles(input$uploadFiles$datapath)
           Data_rma<-rma(Data)
@@ -766,8 +1163,8 @@ shinyServer(function(input, output) {
           ###NonSpecific Filtering-shorth
           row.mean <- esApply(Data_rma,1,mean) 
           sh <- shorth(row.mean)
-          hist(e)
-          abline(v=sh, col="red")
+          #hist(e)
+          #abline(v=sh, col="red")
           f3_Data_rma <- Data_rma[row.mean >=sh,]
           dim(f3_Data_rma)
           
@@ -776,22 +1173,17 @@ shinyServer(function(input, output) {
           filt.matrix<- data.frame(features=v, filt.method = c("before filt", "pOverA", "shorth"))  
           print(filt.matrix)
           
-          ###Quality Assessment- Checking for Batch Effect
-          plotMDS(e, labels = targets$treatment, col=as.numeric(as.factor(targets$replicate)))
-          plotMDS(f2_e, labels = targets$treatment, col=as.numeric(as.factor(targets$replicate)))
-          
           ###Linear Modelling
           abc<-gsub("-","_",abc)
-          print("abc is")
-          print(abc)
           cond<-as.factor(abc)
-          print("cond is")
-          print(cond)
-          print(str(cond))
           batch<-as.factor(targets$replicate)
           design<-model.matrix(~0 + cond + batch)
+          print("the design matrix before:")
+          print (design)
           colnames(design)<-gsub("cond","",colnames(design))
           colnames(design)<-gsub("atch","",colnames(design))
+          print("the design matrix after:")
+          print (design)
           fit<- lmFit(f2_e, design)
           print(head(fit$coefficients))
           x<- gsub("-","_",df_comp[index,1])
@@ -809,12 +1201,92 @@ shinyServer(function(input, output) {
           print(input$adjPval)
           print(input$logFC)
           res<-decideTests(fit3,method = "separate", adjust.method = input$adjMet, p.value = input$adjPval, lfc = input$logFC)
-          vennDiagram(res, include = "up", show.include = T)
-          vennDiagram(res, include = "down", show.include = T)
-          vennDiagram(res, include = "both", show.include = T)
+          
+          # PLOTS
+
+          # Histogram
+          
+          png("histogram.png")
+          par(font.lab=2, font.axis=2)
+          hist(top$adj.P.Val, col = "darkgrey", border = "white", 
+               breaks = 100, 
+               xlab = "P-adj", ylab = "Number of probes", 
+               main = "Adjusted P-value distribution",
+               xaxt= "n"
+          )
+          axis(side = 1, at = seq(0, 1, length.out = 5), 
+               labels = seq(0, 1, length.out = 5), tck= 0)
+          dev.off()
+          
+          # Boxplot
+          cond1<- df_comp[index,1]
+          cond2<-df_comp[index,3]
+          if(length(unique(empty_up$treatment))>1)     { a<- empty_up$treatment }      else { a <-"" }
+          if(length(unique(empty_up$duration))>1)      { b<- empty_up$duration }       else { b <-"" }
+          if(length(unique(empty_up$concentration))>1) { c<- empty_up$concentration }  else { c <-"" }
+          abc <- paste(a, b, c, sep = "-")
+          
+          png("boxplot.png", width = 800, height = 600)                  
+          ctr_index<- which(abc==cond1, arr.ind = TRUE)
+          tr_index<- which(abc==cond2, arr.ind = TRUE)
+          
+          groups<- c("Control", "Treated")
+          test_f2_e<-f2_e
+          sample_tags <- rep("Unknown", ncol(test_f2_e))
+          for (i in ctr_index) {
+            sample_tags[i] <- "Control"
+          }
+          for (i in tr_index) {
+            sample_tags[i] <- "Treated"
+          }
+          
+          others <- setdiff(colnames(test_f2_e), c("Control", "Treated"))
+          colnames(test_f2_e)<-sample_tags
+          unknown_v<-which(colnames(test_f2_e)=="Unknown")
+          
+          cols<-ifelse(colnames(test_f2_e)=="Control", "lightgreen", 
+                       ifelse(colnames(test_f2_e)=="Treated", "red", "lightgrey"))
+          xlabels<-targets$sample
+          par(mar=c(5.1, 4.1, 4.1, 8.1), xpd=TRUE, bty="l", font.lab=2, font.axis=2)
+          boxplot(f2_e, ylab="Expression Value", xaxt="n", 
+                  col=cols,
+                  main = "Boxplot" )
+          text(x = 1:length(xlabels), y = par("usr")[3] - 0.5, 
+               labels = xlabels, srt=45, font=2,
+               adj = c(1, 1), xpd = TRUE, cex = 1)
+          cond1_clean <- gsub("[^[:alnum:]]", "", cond1)
+          cond2_clean <- gsub("[^[:alnum:]]", "", cond2)
+          
+          if (length(unknown_v)>0){
+            leg <- legend("topright", pch = 19, col = c("lightgreen", "red", "lightgray"),
+                          legend = c(cond1_clean, cond2_clean, "other"), 
+                          fill = c("lightgreen", "red", "lightgray"),
+                          plot = FALSE)
+            
+            legend(x = (leg$rect$left + leg$rect$w) * 0.95, y = leg$rect$top,
+                   pch = 19, col = c("lightgreen", "red", "lightgray"),
+                   legend = c(cond1_clean, cond2_clean, "other"), 
+                   bg= "transparent", border = NA, 
+                   horiz = FALSE, box.lwd = 0, box.col = "white")
+          } else {
+            leg <- legend("topright", pch = 19, col = c("lightgreen", "red"),
+                          legend = c(cond1_clean, cond2_clean), 
+                          fill = c("lightgreen", "red"),
+                          plot = FALSE)
+            
+            legend(x = (leg$rect$left + leg$rect$w) * 0.95, y = leg$rect$top,
+                   pch = 19, col = c("lightgreen", "red"),
+                   legend = c(cond1_clean, cond2_clean), 
+                   bg= "transparent", border = NA, 
+                   horiz = FALSE, box.lwd = 0, box.col = "white")
+          }					
+          
+          dev.off()
           
           ###Keeping DE genes to a data.frame
-          sign<-top[which(abs(top$logFC) > input$logFC & top$adj.P.Val < input$adjPval),]
+          sign<-  subset(top, top$adj.P.Val< input$adjPval & abs(top$logFC)> input$logFC) 
+          
+          #sign<-top[which(abs(top$logFC) > input$logFC & top$adj.P.Val < input$adjPval),]
           print(paste0("Before annotation: nrow(sign) is ", nrow(sign))) 
           print("head of sign is: ")
           print(head(sign))
@@ -826,7 +1298,7 @@ shinyServer(function(input, output) {
             shinyjs::hideElement ("wait_msg2")
             shinyjs::showElement ("msg")
             shinyjs::showElement ("noDEGs")
-          } 
+          } #if (nrow(sign)==0){}
           
           else { 
             ###Annotation using annotate
@@ -845,6 +1317,330 @@ shinyServer(function(input, output) {
               }
               sign<- annotf(sign, y)
               print(paste0("nrow(sign) after annotf is ",nrow(sign)))
+              
+              top<- annotf(top,y)
+              
+              # PCA
+              cond1<- df_comp[index,1]
+              cond2<-df_comp[index,3]
+              if(length(unique(empty_up$treatment))>1)     { a<- empty_up$treatment }      else { a <-"" }
+              if(length(unique(empty_up$duration))>1)      { b<- empty_up$duration }       else { b <-"" }
+              if(length(unique(empty_up$concentration))>1) { c<- empty_up$concentration }  else { c <-"" }
+              abc <- paste(a, b, c, sep = "-")
+              
+              ctr_index<- which(abc==cond1, arr.ind = TRUE)
+              tr_index<- which(abc==cond2, arr.ind = TRUE)
+              groups<- c("Control", "Treated")
+              pca_f2_e<-f2_e
+              sample_tags <- rep("Unknown", ncol(pca_f2_e))
+              for (i in ctr_index) {
+                sample_tags[i] <- "Control"
+              }
+              for (i in tr_index) {
+                sample_tags[i] <- "Treated"
+              }
+              others <- setdiff(colnames(pca_f2_e), c("Control", "Treated"))
+              colnames(pca_f2_e)<-sample_tags
+              
+              # Identify samples belonging to control and treated groups
+              control_samples <- which(sample_tags == "Control")
+              treated_samples <- which(sample_tags == "Treated")
+              
+              # Subset the data to include only control and treated samples
+              selected_samples <- pca_f2_e[, c(control_samples, treated_samples)]
+              
+              # Perform PCA
+              pca_result <- prcomp(t(selected_samples))
+              print(summary(pca_result))
+              
+              ### Scree plot
+              #Calculate variance explained as percentage and cumulative variance
+              variance_explained_percent <- pca_result$sdev^2 / sum(pca_result$sdev^2) * 100
+              cumulative_variance <- cumsum(pca_result$sdev^2) / sum(pca_result$sdev^2)
+              
+              # Create data frame for scree plot
+              scree_data <- data.frame(
+                PC = 1:length(pca_result$sdev),
+                Variance_Explained = variance_explained_percent,
+                Cumulative_Variance = cumulative_variance
+              )
+              
+              # Plot scree plot
+              scree_plot <- ggplot(scree_data, aes(x = PC)) +
+                geom_line(aes(y = Variance_Explained, color = "Variance Explained")) +
+                geom_line(aes(y = Cumulative_Variance, color = "Cumulative Variance Explained")) +
+                scale_color_manual(values = c("black", "red")) +
+                labs(title = paste0("Scree Plot"), x = "Principal Component", y = "Variance Explained (%)") +
+                theme_minimal() +  
+                theme(
+                  plot.background = element_rect(fill = "white", color = NA),  # Set entire plot background to white
+                  panel.grid.major = element_blank(),  # Remove major grid lines
+                  panel.grid.minor = element_blank(),  # Remove minor grid lines
+                  panel.border = element_blank(),  # Remove border
+                  axis.line = element_line(color = "black"),  # Add axis lines with black color
+                  axis.text = element_text(color = "black"),  # Set axis text color to black
+                  axis.title = element_text(color = "black"),  # Set axis title color to black
+                  plot.title = element_text(color = "black"),  # Set plot title color to black
+                  plot.margin = margin(1, 1, 1, 1, "cm")  # Set plot margins
+                ) +
+                theme(
+                  plot.title = element_text(face = "bold", hjust = 0.5),  
+                  axis.title = element_text(face = "bold"),  # Bold axis labels
+                  axis.title.x = element_text(hjust = 0.5),  # Centered x-axis label
+                  axis.title.y = element_text(hjust = 0.5)   # Centered y-axis label
+                )
+              # Save scree plot
+              ggsave("scree_plot.png", plot = scree_plot, width = 8, height = 6, units = "in", dpi = 300)
+              
+              ### PCA_scores_plot
+              # Extract the scores (PC1 and PC2) and combine with sample names 
+              pc_df <- data.frame(
+                PC1 = pca_result$x[,1],
+                PC2 = pca_result$x[,2],
+                PC3 = pca_result$x[,3], 
+                Sample_Group = ifelse(seq_along(rownames(pca_result$x)) %in% ctr_index, "Control", "Treated")
+              )
+              # Plot PCA scores with sample groups
+              pca_scores_plot <- ggplot(pc_df, aes(x = PC1, y = PC2, color = Sample_Group)) +
+                geom_point() +
+                labs(title = paste0("PCA Plot with Sample Groups"), x = "PC1", y = "PC2") +  
+                scale_color_manual(values = c("Control" = "blue", "Treated" = "red")) + ### group names
+                theme_minimal() +
+                theme(
+                  plot.background = element_rect(fill = "white", color = NA),  # Set entire plot background to white
+                  panel.grid.major = element_blank(),  # Remove major grid lines
+                  panel.grid.minor = element_blank(),  # Remove minor grid lines
+                  panel.border = element_blank(),  # Remove border
+                  axis.line = element_line(color = "black"),  # Add axis lines with black color
+                  axis.text = element_text(color = "black"),  # Set axis text color to black
+                  axis.title = element_text(color = "black"),  # Set axis title color to black
+                  plot.title = element_text(color = "black"),  # Set plot title color to black
+                  plot.margin = margin(1, 1, 1, 1, "cm")  # Set plot margins
+                ) +
+                theme(
+                  plot.title = element_text(face = "bold", hjust = 0.5),  
+                  axis.title = element_text(face = "bold"),  # Bold axis labels
+                  axis.title.x = element_text(hjust = 0.5),  # Centered x-axis label
+                  axis.title.y = element_text(hjust = 0.5)   # Centered y-axis label
+                )
+              # Save PCA scores plot
+              ggsave("pca_scores_plot.png", plot = pca_scores_plot + 
+                       theme(panel.background = element_rect(fill = "white")), 
+                     width = 8, height = 6, units = "in", dpi = 300)
+              
+              ### Biplot
+              # Extract PCA scores and loadings
+              pc_scores <- as.data.frame(pca_result$x)
+              pc_loadings <- as.data.frame(pca_result$rotation)
+              annotated_pc_loadings <- annotf(pc_loadings, y)
+              # Filter out NAs
+              pc_loadings_no_na <- no_annotf(annotated_pc_loadings)
+              # Filter out duplicates
+              pc_loadings_filtered <- unFilt(annotated_pc_loadings$gene_symbol, pc_loadings_no_na)
+              # Choose top genes contributing to PC1 and PC2
+              top_genes <- 10  # Number of top genes to select
+              top_genes_pc1 <- order(abs(pc_loadings_filtered$PC1), decreasing = TRUE)[1:top_genes]
+              top_genes_pc2 <- order(abs(pc_loadings_filtered$PC2), decreasing = TRUE)[1:top_genes]
+              
+              Sample_Group = ifelse(seq_along(rownames(pca_result$x)) %in% ctr_index, "Control", "Treated")
+              
+              # Extract gene symbols
+              top_genes_symbols_pc1 <- pc_loadings_filtered$gene_symbol[top_genes_pc1]
+              top_genes_symbols_pc2 <- pc_loadings_filtered$gene_symbol[top_genes_pc2]
+              # Calculate the percentage of variance explained for PC1 and PC2
+              variance_explained <- round(pca_result$sdev^2 / sum(pca_result$sdev^2) * 100, 2)
+              # Plot PCA loadings with biplot
+              biplot <- ggplot() +
+                labs(title = paste0("Biplot: PCA Loadings"), 
+                     x = paste0("PC1 (", round(variance_explained[1], 2), "%)"),
+                     y = paste0("PC2 (", round(variance_explained[2], 2), "%)")) +  
+                theme_minimal() +
+                theme(
+                  plot.background = element_rect(fill = "white", color = NA),  # Set entire plot background to white
+                  panel.grid.major = element_blank(),  # Remove major grid lines
+                  panel.grid.minor = element_blank(),  # Remove minor grid lines
+                  panel.border = element_blank(),  # Remove border
+                  axis.line = element_line(color = "black"),  # Add axis lines with black color
+                  axis.text = element_text(color = "black"),  # Set axis text color to black
+                  axis.title = element_text(color = "black"),  # Set axis title color to black
+                  plot.title = element_text(color = "black"),  # Set plot title color to black
+                  plot.margin = margin(0.1, 0.1, 0.1, 0.1, "cm")  # Set plot margins
+                ) +
+                scale_x_continuous(expand = expansion(mult = c(0.1, 0.1))) +  
+                scale_y_continuous(expand = expansion(mult = c(0.1, 0.1))) +
+                theme(panel.border = element_rect(color = "black", fill = NA, linewidth = 1),
+                      plot.margin = margin(0.1, 0.1, 0.1, 0.1, "cm")) +
+                coord_fixed(ratio = 1)
+              # Add arrows for top genes contributing to PC1
+              biplot <- biplot +
+                geom_segment(
+                  data = data.frame(
+                    x = 0, y = 0,
+                    xend = pc_loadings_filtered[top_genes_pc1, "PC1"],
+                    yend = pc_loadings_filtered[top_genes_pc1, "PC2"],
+                    gene_symbol = top_genes_symbols_pc1
+                  ),
+                  aes(x = 0, y = 0, xend = xend, yend = yend),
+                  arrow = arrow(length = unit(0.3, "cm")),
+                  color = "darkgreen"
+                ) +
+                geom_text(
+                  data = data.frame(
+                    x = pc_loadings_filtered[top_genes_pc1, "PC1"],
+                    y = pc_loadings_filtered[top_genes_pc1, "PC2"],
+                    gene_symbol = top_genes_symbols_pc1
+                  ),
+                  aes(x = x, y = y, label = gene_symbol),
+                  vjust = 1.5,
+                  hjust = -0.5,
+                  color = "darkgreen",
+                  size = 2
+                )
+              # Add arrows for top genes contributing to PC2
+              biplot <- biplot +
+                geom_segment(
+                  data = data.frame(
+                    x = 0, y = 0,
+                    xend = pc_loadings_filtered[top_genes_pc2, "PC1"],
+                    yend = pc_loadings_filtered[top_genes_pc2, "PC2"],
+                    gene_symbol = top_genes_symbols_pc2
+                  ),
+                  aes(x = 0, y = 0, xend = xend, yend = yend),
+                  arrow = arrow(length = unit(0.3, "cm")),
+                  color = "darkorange"
+                ) +
+                geom_text(
+                  data = data.frame(
+                    x = pc_loadings_filtered[top_genes_pc2, "PC1"],
+                    y = pc_loadings_filtered[top_genes_pc2, "PC2"],
+                    gene_symbol = top_genes_symbols_pc2
+                  ),
+                  aes(x = x, y = y, label = gene_symbol),
+                  vjust = 1.5,
+                  hjust = -0.5,
+                  color = "darkorange",
+                  size  = 2
+                )
+              # Customize axis labels to be bold and centered
+              biplot <- biplot +
+                theme(axis.title.x = element_text(face = "bold", hjust = 0.5),
+                      axis.title.y = element_text(face = "bold", hjust = 0.5),
+                      plot.title = element_text(face = "bold", hjust = 0.5))  
+              # Save biplot
+              ggsave("biplot.png", plot = biplot + 
+                       theme(panel.background = element_rect(fill = "white")), 
+                     width = 15, height = 8, units = "in", dpi = 300)
+              
+              library(plotly)
+              
+              # Plot each dataset with its corresponding color
+              # Create separate datasets for each category
+              upregulated <- top[top$logFC > input$logFC & top$adj.P.Val < input$adjPval, ]
+              downregulated <- top[top$logFC < -input$logFC & top$adj.P.Val < input$adjPval, ]
+              not_significant <- top[!(top$logFC > input$logFC & top$adj.P.Val < input$adjPval) & !(top$logFC < -input$logFC & top$adj.P.Val < input$adjPval), ]
+              max_y <- max(-log10(c(upregulated$adj.P.Val, downregulated$adj.P.Val, not_significant$adj.P.Val)))
+              
+              # Create custom hover text including gene symbol, log2FC, and adjusted p-value
+              up_text <- paste("Gene Symbol: ", upregulated$gene_symbol, "<br>",
+                               "log2FC: ", format(round(upregulated$logFC, 2), nsmall = 2), "<br>",
+                               "Adjusted P-value: ", format(round(upregulated$adj.P.Val, 3), nsmall = 3))
+              
+              down_text <- paste("Gene Symbol: ", downregulated$gene_symbol, "<br>",
+                                 "log2FC: ", format(round(downregulated$logFC, 2), nsmall = 2), "<br>",
+                                 "Adjusted P-value: ", format(round(downregulated$adj.P.Val, 3), nsmall = 3))
+              
+              not_significant_text <- paste("Gene Symbol: ", not_significant$gene_symbol, "<br>",
+                                            "log2FC: ", format(round(not_significant$logFC, 2), nsmall = 2), "<br>",
+                                            "Adjusted P-value: ", format(round(not_significant$adj.P.Val, 3), nsmall = 3))
+              
+              # Create the plot with custom hover text
+              plot <- plot_ly() %>%
+                add_trace(data = upregulated, x = ~logFC, y = ~-log10(adj.P.Val), type = 'scatter', mode = 'markers',
+                          marker = list(size = 4, color = 'red'), name = 'Upregulated', text = up_text, hoverinfo = "text") %>%
+                add_trace(data = downregulated, x = ~logFC, y = ~-log10(adj.P.Val), type = 'scatter', mode = 'markers',
+                          marker = list(size = 4, color = 'blue'), name = 'Downregulated', text = down_text, hoverinfo = "text") %>%
+                add_trace(data = not_significant, x = ~logFC, y = ~-log10(adj.P.Val), type = 'scatter', mode = 'markers',
+                          marker = list(size = 2, color = 'black'), name = 'Not significant', text = not_significant_text, hoverinfo = "text") %>%
+                layout(
+                  title = list(text = paste0("Interactive Volcano Plot"), y = 0.97),  
+                  xaxis = list(title = "log2 Fold Change", showgrid = FALSE, zeroline = FALSE), 
+                  yaxis = list(title = "-log10(Adjusted P-value)", showgrid = FALSE, linecolor= "black"), 
+                  hovermode = "closest",
+                  legend = list(
+                    orientation = "v",
+                    x = 0.9,
+                    y = 0.2,
+                    xanchor = "left",
+                    yanchor = "top",
+                    bgcolor = "rgba(0,0,0,0)",
+                    bordercolor = "rgba(0,0,0,0)",  
+                    borderwidth = 2
+                  ),
+                  margin = list(l = 50, r = 50, b = 50, t = 50),  
+                  font = list(family = "Arial", size = 14, color = "black", weight = "bold"),
+                  showlegend = TRUE,
+                  yaxis2 = list(range = c(0, max_y + 1)), 
+                  print("volcano is ready")
+                )
+              
+              htmlwidgets::saveWidget(plot, file = "volcanoplot.html")
+              
+              # Heatmap
+              
+              library(RColorBrewer)
+              library(heatmaply)
+              
+              sel.top<- subset(top, top$adj.P.Val<input$adjPval & abs(top$logFC)>input$logFC)
+              sel.top<- annotf(sel.top, y)
+              sel.top<- unFilt(sel.top$gene_symbol, sel.top)
+              sel.top<-sel.top[is.na(sel.top$gene_symbol)==FALSE,]
+              sel.top<- sel.top[order(sel.top$logFC, decreasing = TRUE),]
+              f2_e.sel<- f2_e[rownames(sel.top), ]
+
+              keys<-sel.top$probeID
+              values<-sel.top$gene_symbol
+              l<- list()
+              for(i in 1:length(keys)){
+                l[keys[i]]<- values[i]
+              }
+              rownames(f2_e.sel)<- unlist(l[rownames(f2_e.sel)], use.names = F)
+              yellowblackblue <- colorRampPalette(c("dodgerblue", "black", "gold"))(n = 100)
+              data<- matrix(data = f2_e.sel, nrow = nrow(f2_e.sel))
+              hover_text <- matrix(paste("AveExpr:", round(data, 4)), 
+                                   nrow = nrow(data), ncol = ncol(data))
+              
+              heatdata<- f2_e.sel
+              colnames(heatdata)<-empty_up$sample
+              
+              heat<- heatmaply(heatdata, distfun = "pearson", hclust_method = NA, 
+                               colors = yellowblackblue, row_dend_left = T,
+                               margins = c(50,50,70,0),
+                               main = "Heatmap", scale = "row", Colv = F,
+                               label_names = c("Gene", "Sample", "Value"),
+                               custom_hovertext = hover_text,
+                               file = "./heatmap.html")
+              #browseURL("./heatmap.html")
+              
+              files_to_zip<- c("volcanoplot.html",
+                               "boxplot.png",
+                               "histogram.png",
+                               "scree_plot.png",
+                               "pca_scores_plot.png",
+                               "biplot.png",
+                               "heatmap.html"
+              )
+              zip_filename<- "plots.zip"
+              zip(zip_filename, files_to_zip)
+              
+              output$down_plots <- downloadHandler(
+                filename = function() {
+                  zip_filename
+                },
+                content = function(file) {
+                  path_to_zip <- zip_filename
+                  file.copy(path_to_zip, file)
+                }
+              )
               
               ###Filtering for NA geneNames
               sign<- sign[is.na(sign$gene_symbol)==FALSE,]
@@ -962,7 +1758,7 @@ shinyServer(function(input, output) {
                       shinyjs::hideElement("choosing_RefSet")
 
                       library(zip)
-                      
+
                       print("Running WebGestaltR")
                       genesymbol <- degs_t$gene_symbol
                       genesymbol <- as.character(genesymbol)
@@ -999,11 +1795,11 @@ shinyServer(function(input, output) {
                       content = function(temp) {
                         file.copy(from = paste0(getwd(),"/WebGestalt.zip"), to = temp)  
                       })
-                  }) 
-                }) 
-              } 
-            } 
-            else { 
+                  }) #submitOrganism
+                }) #WebGestlatR
+              } #else sto Rendering
+            } #!is.element
+            else { #sto if(!is.element(y,set))
               shinyjs::showElement("no_annotation")
               
               ###Rendering and downloading DE genes list WITHOUT ANNOTATION 
@@ -1053,17 +1849,17 @@ shinyServer(function(input, output) {
               shinyjs::enable ("anls")
               shinyjs::hideElement("wait_msg5")
               shinyjs::showElement("msg_no_annot")
-            } 
-          } 
+            } #no annotation
+          } #else - annotate
           
           #Deleting files from working directory
           print(list.files(path = getwd(), all.files = T, full.names = T, include.dirs = T))
           unlink(file.path(getwd(),c("*.CEL", "*.tar", "*.gz","*.txt.gz","*.txt"))) 
-          print(".CEL, *.tar, *.gz, *.txt.gz and *.txt are gone")
+          print(".CEL, *.tar, *.gz, *.txt.gz, and *.txt are gone")
           print(list.files(path = getwd(), all.files = T, full.names = T, include.dirs = T))
           
-        }) 
-      }) 
-    }) 
-  }) 
-}) 
+        }) #anls
+      }) #submit_comp
+    }) #changes_done
+  }) #up_go
+}) #server
