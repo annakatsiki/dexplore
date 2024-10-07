@@ -10,3 +10,6 @@ In addition, the application enables the user to proceed directly to functional 
 DExplore is built using R programming language, shiny package and Bioconductor. 
 
 A docker image can be found on https://hub.docker.com/r/akatsiki/dexplore
+
+
+Katsiki, A.D.; Karatzas, P.E.; De Lastic, H.-X.; Georgakilas, A.G.; Tsitsilonis, O.; Vorgias, C.E. DExplore: An Online Tool for Detecting Differentially Expressed Genes from mRNA Microarray Experiments. Biology 2024, 13, 351. https://doi.org/10.3390/biology13050351 
